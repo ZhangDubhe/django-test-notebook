@@ -33,4 +33,3 @@ class QuizDetail(models.Model):
     quizLog = models.ForeignKey(QuizLog, on_delete=models.CASCADE)
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
     detail = models.CharField(max_length=250)
-    
