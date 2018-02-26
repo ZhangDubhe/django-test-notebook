@@ -4,10 +4,7 @@ from django.utils import timezone
 class User(models.Model):
     user_name = models.CharField(max_length=250)
     user_email = models.CharField(max_length=250, unique=True)
-    user_organization = models.CharField(max_length=250)
     user_password = models.CharField(max_length=250)
-    is_related = models.BooleanField()
-    is_doctor = models.BooleanField()
     is_admin = models.BooleanField(default=False)
     add_at = models.DateTimeField(auto_now=True)
     def __str__(self):

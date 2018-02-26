@@ -2,7 +2,7 @@
 
 {% block login-component %}
 
-<form action="{% url 'register-post' %}" class="form-horizontal" method="post" >
+<form action="{% url 'login-post' %}" class="form-horizontal" method="post" >
     {% csrf_token %}
 
   <div class="form-group row">
@@ -11,27 +11,18 @@
       <input type="text" class="form-control" id="inputName" placeholder="Username" name="username">
     </div>
   </div>
-
-	<div class="form-group row">
-    <label class="col-sm-4 control-label">Email</label>
-    <div class="col-sm-8">
-      <input class="form-control" placeholder="email@example.com"  name="email" autocomplete="new">
-    </div>
-  </div>
-
-
-
   <div class="form-group row">
     <label for="inputPassword" class="col-sm-4 control-label">Password</label>
     <div class="col-sm-8">
-      <input type="password" class="form-control" id="inputPassword" name="password" placeholder="Password" autocomplete="new">
+      <input type="password" class="form-control" id="inputPassword" placeholder="Password" name="password" >
     </div>
   </div>
 
-	<div class="form-group row ">
-		<div class="mx-auto">
-			<a href="{% url 'login' %}">already have account</a>
-			<button type="submit" class="btn btn-primary mb-2">Register</button>
+	<div class="form-group row">
+		<div class="col-sm-4"></div>
+		<div class="col-sm-8">
+			<a href="{% url 'register' %}">no account?</a>
+			<button type="submit" class="btn btn-primary mb-2">Login</button>
 		</div>
 	</div>
 
@@ -40,7 +31,7 @@
 		<strong>Opppps!</strong> {{ other }}
 	</div>
 	{% endif %}
-</form>
+
 
 {% endblock %}
 {% block extrascript %}

@@ -1,6 +1,9 @@
-{% extends "../base.html" %}
-
-{% block extrastyle %}{{ block.super }}<link rel="stylesheet" type="text/css" href="{% static "home/css/home.css" %}" />{% endblock %}
+{% extends "base.html" %}
+{% load i18n static %}
+{% block extrastyle %}
+    {{ block.super }}
+    <link rel="stylesheet" type="text/css" href="{% static "home/css/home.css" %}" />
+{% endblock %}
 
 {% block content %}
 
@@ -21,6 +24,7 @@
 
 
 {% block extrascript %}
-
-
+<script>
+        check_login();
+</script>
 {% endblock %}
