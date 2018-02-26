@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en-us" >
+<!--suppress ALL -->
+<head>
+<title>
+    {% block title %}{{ title }} | {{ site_title|default:_('Notebook of sun') }}{% endblock %}
+</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+{% load i18n static %}
+{% block extrastyle %}{% endblock %}
+
+{% block extrahead %}{% endblock %}
+
+{% block blockbots %}<meta name="robots" content="NONE,NOARCHIVE" />{% endblock %}
+</head>
+
+<body class="{% block bodyclass %}{% endblock %}">
+
+<!-- Container -->
+<div id="container">
+    <div id="header" class="navbar navbar-default navbar-fixed-top navbar-light bg-light">
+        {% block branding %}
+            <a id="site-name" class="navbar-brand" href="#">Notebook</a>
+        {% endblock %}
+        
+        <nav class="navbar">
+            <a class="nav-link" href="{% url 'index' %}">Home</a>
+            <a class="nav-link" href="{% url 'collect' %}">Add</a>
+            <a class="nav-link" href="{% url 'quiz' %}">Quiz</a>
+        </nav>
+    </div>
+
+    <!-- Content -->
+    <div id="content"  class="container px-2">
+
+        <div class="row mt-4 mb-2">
+			{% block info %}{% endblock %}
+        </div>
+	    <div class="row mt-4 mb-2">
+            {% block content %}
+                {{ content }}
+            {% endblock %}
+        </div>
+        {% block login-component %}{% endblock %}
+        <br class="clear" />
+    </div>
+    <!-- END Content -->
+
+    <div id="footer" class="footer fixed-bottom">
+        {% block footer %}{% endblock %}
+    </div>
+</div>
+<!-- END Container -->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script src="{% static "layer/layer.js" %}"></script>
+<script src="{% static "auth.js" %}"></script>
+
+<script>
+status = 0;
+serviceTicket = "";
+session = sessionStorage;
+API_PATH = "http://localhost:8080/";
+CSRFTOKEN = '{{ csrf_token }}';
+check_login();
+</script>
+
+{% block extrascript %}{% endblock %}
+</body>
+</html>

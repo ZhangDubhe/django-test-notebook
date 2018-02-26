@@ -1,0 +1,26 @@
+{% extends "../base.html" %}
+
+{% block extrastyle %}{{ block.super }}<link rel="stylesheet" type="text/css" href="{% static "home/css/home.css" %}" />{% endblock %}
+
+{% block content %}
+
+<div class="col-xs-12 col-sm-12 mb-4">
+    <h5>{% trans "Hello"  %},{% blocktrans %}{{  username  }}!{% endblocktrans %}</h5>
+    <h5>{{ info }}</h5>
+</div>
+<br/>
+<div class="col-xs-12 col-sm-12 mb-4">
+
+</div>
+<div class="col-xs-12 col-sm-12 mb-4">
+
+    <p>may the force be with you.</p>
+</div>
+
+{% endblock %}
+
+
+{% block extrascript %}
+
+
+{% endblock %}
