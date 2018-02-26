@@ -60,7 +60,7 @@ def register(request):
 				results = "Create user error"
 
 	if status == 20:
-		user_name = _(user.user_name)
+		user_name = user.user_name
 		content = "Are you ready?"
 		para = "Today topic is about Otitis (Ear inflammation), there are around three disease in this topic. Now let's challenge."
 		return render(request, 'collect.html', {
@@ -92,7 +92,7 @@ def login(request):
 	else:
 		msg = "Wrong request"
 	if status == 20:
-		user_name = _(m.user_name)
+		user_name = m.user_name
 		content = "Are you ready?"
 		para = "Today topic is about Otitis (Ear inflammation), there are around three disease in this topic. Now let's challenge."
 		return render(request, 'collect.html', {

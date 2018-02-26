@@ -25,6 +25,8 @@
 
 {% block extrascript %}
 <script>
+        login("{{ user.id }}");
         check_login();
+        
 </script>
 {% endblock %}

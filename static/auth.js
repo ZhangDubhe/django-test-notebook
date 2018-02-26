@@ -1,5 +1,5 @@
 function check_login() {
-	if(!session.uuid || session.uuid == undefined){
+	if(!session.uuid || session.uuid == undefined || session.uuid == 'None'){
 		location.href = API_PATH + "account/login";
 	}
 	console.log("Auth ",session.uuid)
