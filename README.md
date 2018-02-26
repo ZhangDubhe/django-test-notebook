@@ -13,5 +13,9 @@ After checkout from this repository and cd to "Notebook". Then run django server
 
     python3 manage.py runserver 
 
+Or If you want to let others see your demo through Internet, then:
+
+    python3 manage.py runserver 0.0.0.0:<your port>
+
 Then search it in browser.
 

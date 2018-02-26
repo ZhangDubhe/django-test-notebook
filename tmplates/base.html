@@ -29,6 +29,16 @@
             <a class="nav-link" href="{% url 'index' %}">Home</a>
             <a class="nav-link" href="{% url 'collect' %}">Add</a>
             <a class="nav-link" href="{% url 'quiz' %}">Quiz</a>
+            {% if user.user_name %}
+                {% if user.is_admin %}
+                    <a class="nav-link" href="{% url 'admin:index' %}">admin</a>
+                {% endif %}
+                <a class="nav-link">{{ user.user_name }}</a>/
+                <a class="nav-link" href="{% url 'login' %}" onclick="logout()">Logout</a>
+            {% endif %}
+            {% if not user.user_name %}
+                <a class="nav-link" href="{% url 'login' %}">Login</a>
+            {% endif %}
         </nav>
     </div>
 
@@ -65,7 +75,8 @@
 status = 0;
 serviceTicket = "";
 session = sessionStorage;
-API_PATH = "http://localhost:8080/";
+API_PATH = location.origin + "/";
+console.log("Host:",API_PATH);
 CSRFTOKEN = '{{ csrf_token }}';
 </script>
 
