@@ -1,1 +1,5 @@
+# IntelliJ IDEA Project files
+.idea
+
+# Database on local
 db.sqlite3
