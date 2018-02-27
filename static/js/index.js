@@ -10,3 +10,4 @@ function add_question() {
 function save_question() {
 	location.href = API_PATH;
 }
+
