@@ -9,6 +9,7 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
 {% load i18n static %}
+
 {% block extrastyle %}{% endblock %}
 
 {% block extrahead %}{% endblock %}
@@ -26,9 +27,6 @@
         {% endblock %}
         
         <nav class="navbar">
-            <a class="nav-link" href="{% url 'index' %}">Home</a>
-            <a class="nav-link" href="{% url 'collect' %}">Add</a>
-            <a class="nav-link" href="{% url 'quiz' %}">Quiz</a>
             {% if user.user_name %}
                 {% if user.is_admin %}
                     <a class="nav-link" href="{% url 'admin:index' %}">admin</a>
@@ -42,11 +40,38 @@
         </nav>
     </div>
 
+
+
     <!-- Content -->
     <div id="content"  class="container px-2">
 
-        <div class="row mt-4 mb-2">
-			{% block info %}{% endblock %}
+        <div class="row mt-2">
+	        <div class="col-xs-12 col-sm-12 mb-2 question-card">
+			        <h3  data-toggle="collapse" href="#multiType" role="button" aria-expanded="false" aria-controls="multiType" >
+				 {{ info }}</h3>
+	        </div>
+
+
+
+			<div class="collapse multi-collapse col-xs-12 col-sm-12" id="multiType">
+				<div id="type-content">
+					<div class="question-card mb-2">
+						<b>Type 1</b>
+					</div>
+				</div>
+
+				<div class="question-card mb-2">
+					<a onclick="add_type()"><b>+</b></a>
+					<div class="input-group mb-3 ">
+							<input type="text" class="form-control" placeholder="Recipient's username" aria-label="Type" aria-describedby="basic-addon2">
+						<div class="input-group-append">
+						<button class="btn btn-outline-secondary" type="button">确认</button>
+						</div>
+					</div>
+				</div>
+
+			</div>
+
         </div>
 	    <div class="row mt-4 mb-2">
             {% block content %}
@@ -58,27 +83,30 @@
     </div>
     <!-- END Content -->
 
-    <div id="footer" class="footer fixed-bottom">
-        {% block footer %}{% endblock %}
-    </div>
+	{% block plug-q %}
+		    <div class="big" onclick="add_question()"><strong>+</strong></div>
+	{% endblock %}
 </div>
 <!-- END Container -->
+<script>
+status = 0;
+serviceTicket = "";
+session = sessionStorage;
+API_PATH = location.origin + "/";
+CSRFTOKEN = '{{ csrf_token }}';
+user_name = undefined;
+</script>
+
+
+
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 <script src="{% static "layer/layer.js" %}"></script>
-<script src="{% static "auth.js" %}"></script>
-
-<script>
-status = 0;
-serviceTicket = "";
-session = sessionStorage;
-API_PATH = location.origin + "/";
-console.log("Host:",API_PATH);
-CSRFTOKEN = '{{ csrf_token }}';
-</script>
+<script src="{% static "js/auth.js" %}"></script>
+<script src="{% static "js/index.js" %}"></script>
 
 {% block extrascript %}{% endblock %}
 </body>

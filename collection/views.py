@@ -7,21 +7,22 @@ import json
 # Create your views here.
 
 def index(request):
-    return render(request, 'register.html', {
-			'title': 'Sign up or Log'
-		})
+	return render(request, 'index.html', {
+		'title': 'Welcome',
+		'info': 'Base'
+	})
 
 def quiz(request):
     return render(request, 'quiz.html', {
 			'title': 'Quiz',
-			'info':"随机错题"
+			'info':"Quiz"
 		})
 
 
 def collect(request):
     return render(request, 'collect.html', {
 			'title': 'Collection',
-			'info':"请输入你想记录的错题"
+			'info':"Base"
 		})
     
 
@@ -61,14 +62,13 @@ def register(request):
 
 	if status == 20:
 		user_name = user.user_name
-		content = "Are you ready?"
-		para = "Today topic is about Otitis (Ear inflammation), there are around three disease in this topic. Now let's challenge."
-		return render(request, 'collect.html', {
-			'content': content,
+
+
+		return render(request, 'index.html', {
 			'title': 'Home',
 			'username': user_name,
 			'user': user,
-			'para': para
+			'info': 'base'
 		})
 	else:
 		return render(request, 'register.html', {
@@ -93,14 +93,11 @@ def login(request):
 		msg = "Wrong request"
 	if status == 20:
 		user_name = m.user_name
-		content = "Are you ready?"
-		para = "Today topic is about Otitis (Ear inflammation), there are around three disease in this topic. Now let's challenge."
-		return render(request, 'collect.html', {
-			'content': content,
+		return render(request, 'index.html', {
 			'title': 'Home',
 			'username': user_name,
 			'user': m,
-			'para': para
+			'info': 'base'
 		})
 	else:
 		return render(request, 'login.html', {

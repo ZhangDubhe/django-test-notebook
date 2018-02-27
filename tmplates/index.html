@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% load i18n static %}
+{% block extrastyle %}
+    {{ block.super }}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/home.css' %}" />
+{% endblock %}
+
+{% block content %}
+
+
+	<div class="col-xs-12 col-sm-12 mb-1 question-card">
+		<p>Test WORDS</p>
+	</div>
+	<div class="col-xs-12 col-sm-12 mb-1 question-card">
+		<p>Test WORDS</p>
+	</div>
+	<div class="col-xs-12 col-sm-12 mb-1 question-card">
+		<p>Test WORDS</p>
+	</div>
+{% for question in questions  %}
+	<div class="col-xs-12 col-sm-12 mb-1 question-card">
+		<p>Test WORDS</p>
+	</div>
+{% endfor %}
+
+
+
+{% endblock %}
+
+
+{% block extrascript %}
+<script>
+	{% if user.user_name %}
+		login('{{ user.id }}');
+		user_name = '{{ user.user_name }}';
+	{% endif %}
+	check_login();
+</script>
+{% endblock %}
