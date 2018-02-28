@@ -47,20 +47,23 @@
              <div class="row mt-2">
 			    <div class="col-xs-12 col-sm-12 mb-2 question-card">
 				        <h3  data-toggle="collapse" href="#multiType" role="button" aria-expanded="false" aria-controls="multiType" >
-					 {{ info }}</h3>
+					 {% block type_header %}Base
+					 {% endblock %}</h3>
 			    </div>
 
 				<div class="collapse multi-collapse col-xs-12 col-sm-12" id="multiType">
 					<div id="type-content">
-						<div class="question-card mb-2">
-							<b>Type 1</b>
-						</div>
+						{% block type_gorup %}
+							<div class="question-card mb-2">
+								<b>Type 1</b>
+							</div>
+						{% endblock %}
 					</div>
 
 					<div class="question-card mb-2">
 						<a onclick="add_type()"><b>+</b></a>
 						<div class="input-group mb-3 ">
-								<input type="text" class="form-control" placeholder="Recipient's username" aria-label="Type" aria-describedby="basic-addon2">
+								<input type="text" class="form-control" placeholder="new type" aria-label="Type" aria-describedby="basic-addon2">
 							<div class="input-group-append">
 							<button class="btn btn-outline-secondary" type="button">确认</button>
 							</div>
@@ -94,7 +97,6 @@ serviceTicket = "";
 session = sessionStorage;
 API_PATH = location.origin + "/";
 CSRFTOKEN = '{{ csrf_token }}';
-user_name = undefined;
 </script>
 
 

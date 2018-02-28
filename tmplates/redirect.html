@@ -21,6 +21,6 @@
 
 {% block extrascript %}
     <script>
-		location.href = API_PATH;
+		location.href = '{% url 'logged' user.id %}';
     </script>
 {% endblock %}

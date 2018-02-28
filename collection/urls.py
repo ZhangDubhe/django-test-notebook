@@ -3,8 +3,10 @@ from . import views
 
 urlpatterns = [
     path('', views.index, name='index'),
-    path('collect', views.collect, name='collect'),
-    path('quiz', views.quiz, name='quiz'),
+    path('u/<int:user_id>/', views.index, name='logged'),
+    path('u/<int:user_id>/collect', views.collect, name='collect'),
+    path('u/<int:user_id>/quiz', views.quiz, name='quiz'),
+    path('u/<int:user_id>/question/<int:question_id>', views.question, name='question'),
     path('account/login', views.init_login, name="login"),
     path('account/login-post', views.login, name="login-post"),
     path('account/register', views.init_register, name="register"),

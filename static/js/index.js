@@ -4,10 +4,10 @@ function add_type(){
 }
 
 function add_question() {
-	location.href = API_PATH + "collect";
+	location.href = API_PATH + "u/" + session.uuid + "/collect";
 }
 
 function save_question() {
-	location.href = API_PATH;
+	location.href = API_PATH + "u/" + session.uuid +'/';
 }
 
