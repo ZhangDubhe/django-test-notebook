@@ -60,7 +60,7 @@ class QuestionDetail(models.Model):
 
 class Type(models.Model):
     name = models.CharField(max_length=50)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE,  default=1)
     create_at = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
