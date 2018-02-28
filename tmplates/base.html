@@ -21,64 +21,67 @@
 
 <!-- Container -->
 <div id="container">
-    <div id="header" class="navbar navbar-default navbar-fixed-top navbar-light bg-light">
-        {% block branding %}
-            <a id="site-name" class="navbar-brand" href="#">Notebook</a>
-        {% endblock %}
-        
-        <nav class="navbar">
-            {% if user.user_name %}
-                {% if user.is_admin %}
-                    <a class="nav-link" href="{% url 'admin:index' %}">admin</a>
-                {% endif %}
-                <a class="nav-link">{{ user.user_name }}</a>/
-                <a class="nav-link" href="{% url 'login' %}" onclick="logout()">Logout</a>
-            {% endif %}
-            {% if not user.user_name %}
-                <a class="nav-link" href="{% url 'login' %}">Login</a>
-            {% endif %}
-        </nav>
-    </div>
+    <!-- Banner -->
+	{% block banner %}
+	    <div id="header" class="navbar navbar-default navbar-fixed-top navbar-light bg-light">
+    {% block branding %}
+        <a id="site-name" class="navbar-brand" href="#">Notebook</a>
+    {% endblock %}
 
-
+    <nav class="navbar">
+        {% if user.user_name %}
+            {% if user.is_admin %}
+                <a class="nav-link" href="{% url 'admin:index' %}">admin</a>
+            {% endif %}
+            <a class="nav-link">{{ user.user_name }}</a>/
+            <a class="nav-link" href="{% url 'login' %}" onclick="logout()">Logout</a>
+        {% endif %}
+        {% if not user.user_name %}
+            <a class="nav-link" href="{% url 'login' %}">Login</a>
+        {% endif %}
+    </nav>
+</div>
+	{% endblock %}
 
     <!-- Content -->
     <div id="content"  class="container px-2">
 
-        <div class="row mt-2">
-	        <div class="col-xs-12 col-sm-12 mb-2 question-card">
-			        <h3  data-toggle="collapse" href="#multiType" role="button" aria-expanded="false" aria-controls="multiType" >
-				 {{ info }}</h3>
-	        </div>
+        {% block type-component %}
+             <div class="row mt-2">
+			    <div class="col-xs-12 col-sm-12 mb-2 question-card">
+				        <h3  data-toggle="collapse" href="#multiType" role="button" aria-expanded="false" aria-controls="multiType" >
+					 {{ info }}</h3>
+			    </div>
 
-
-
-			<div class="collapse multi-collapse col-xs-12 col-sm-12" id="multiType">
-				<div id="type-content">
-					<div class="question-card mb-2">
-						<b>Type 1</b>
+				<div class="collapse multi-collapse col-xs-12 col-sm-12" id="multiType">
+					<div id="type-content">
+						<div class="question-card mb-2">
+							<b>Type 1</b>
+						</div>
 					</div>
-				</div>
 
-				<div class="question-card mb-2">
-					<a onclick="add_type()"><b>+</b></a>
-					<div class="input-group mb-3 ">
-							<input type="text" class="form-control" placeholder="Recipient's username" aria-label="Type" aria-describedby="basic-addon2">
-						<div class="input-group-append">
-						<button class="btn btn-outline-secondary" type="button">确认</button>
+					<div class="question-card mb-2">
+						<a onclick="add_type()"><b>+</b></a>
+						<div class="input-group mb-3 ">
+								<input type="text" class="form-control" placeholder="Recipient's username" aria-label="Type" aria-describedby="basic-addon2">
+							<div class="input-group-append">
+							<button class="btn btn-outline-secondary" type="button">确认</button>
+							</div>
 						</div>
 					</div>
 				</div>
+            </div>
+        {% endblock %}
 
-			</div>
-
-        </div>
 	    <div class="row mt-4 mb-2">
             {% block content %}
                 {{ content }}
             {% endblock %}
         </div>
-        {% block login-component %}{% endblock %}
+
+        {% block login-component %}
+
+        {% endblock %}
         <br class="clear" />
     </div>
     <!-- END Content -->

@@ -47,6 +47,7 @@ def register(request):
 		username = request.POST.get('username')
 		useremail = request.POST.get('email')
 		userpassword = request.POST.get('password')
+
 		try:
 			is_resist_user = User.objects.get(user_name=username)
 			if is_resist_user:
