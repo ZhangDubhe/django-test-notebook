@@ -56,3 +56,12 @@ class QuestionDetail(models.Model):
 
     def __str__(self):
         return User.objects.get(pk=self.user).user_name + "got at" + self.create_at
+
+
+class Type(models.Model):
+    name = models.CharField(max_length=50)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    create_at = models.DateTimeField(default=timezone.now)
+
+    def __str__(self):
+        return self.name

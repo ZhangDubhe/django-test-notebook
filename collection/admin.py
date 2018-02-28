@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 # Register your models here.
-from .models import User, Question
+from .models import User, Question, Type, QuestionDetail, QuizLog
 
 
 class UserAdmin(admin.ModelAdmin):
@@ -13,3 +13,6 @@ class UserAdmin(admin.ModelAdmin):
 
 admin.site.register(User, UserAdmin)
 admin.site.register(Question)
+admin.site.register(Type)
+admin.site.register(QuestionDetail)
+admin.site.register(QuizLog)
