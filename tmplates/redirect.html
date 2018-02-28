@@ -1,10 +1,26 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<title>Title</title>
-</head>
-<body>
+{% extends "base.html" %}
 
-</body>
-</html>
+{% block banner %}
+{% endblock %}
+
+{% block content %}
+	<div class="col-sm-2"></div>
+    <div class="col-sm-8">
+        <h2>{{ content }}</h2>
+    </div>
+{% endblock %}
+
+{% block type-component %}
+{% endblock %}
+
+{% block login-component %}
+{% endblock %}
+
+{% block plug-q %}
+{% endblock %}
+
+{% block extrascript %}
+    <script>
+		location.href = API_PATH;
+    </script>
+{% endblock %}

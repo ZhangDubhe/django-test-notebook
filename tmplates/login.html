@@ -6,6 +6,9 @@
 {% block type-component %}
 {% endblock %}
 
+{% block plug-q %}
+{% endblock %}
+
 {% block login-component %}
 <form action="{% url 'login-post' %}" class="form-horizontal" method="post" >
     {% csrf_token %}

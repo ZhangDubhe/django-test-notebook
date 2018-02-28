@@ -43,7 +43,7 @@ def init_login(request):
 
 def register(request):
 	status = 0
-	if request.method == "POST":
+	if request.method == "POST" and request.POST.get('username') and request.POST.get('password'):
 		username = request.POST.get('username')
 		useremail = request.POST.get('email')
 		userpassword = request.POST.get('password')
@@ -60,17 +60,10 @@ def register(request):
 				status = 20
 			except:
 				results = "Create user error"
-
+	else:
+		results = "请重新输入"
 	if status == 20:
-		user_name = user.user_name
-
-
-		return render(request, 'index.html', {
-			'title': 'Home',
-			'username': user_name,
-			'user': user,
-			'info': 'base'
-		})
+		return redirect(request, user)
 	else:
 		return render(request, 'register.html', {
 			'title': 'Login',
@@ -79,10 +72,10 @@ def register(request):
 
 def login(request):
 	status = 0
-	if request.method == "POST":
+	if request.method == "POST" and request.POST.get('username'):
 		try:
-			m = User.objects.get(user_name=request.POST.get('username'))
-			if m.user_password == request.POST.get('password'):
+			user = User.objects.get(user_name=request.POST.get('username'))
+			if user.user_password == request.POST.get('password'):
 				msg = "You're logged in."
 				status = 20
 			else:
@@ -93,15 +86,17 @@ def login(request):
 	else:
 		msg = "Wrong request"
 	if status == 20:
-		user_name = m.user_name
-		return render(request, 'index.html', {
-			'title': 'Home',
-			'username': user_name,
-			'user': m,
-			'info': 'base'
-		})
+		return redirect(request, user)
 	else:
 		return render(request, 'login.html', {
 			'title': 'Login',
 			'other': msg
 		})
+
+def redirect(request, user):
+	return render(request, 'redirect.html', {
+		'title': 'Redirecting',
+		'username': user.user_name,
+		'user': user,
+		'content': 'Welcome ' + user.user_name,
+	})
