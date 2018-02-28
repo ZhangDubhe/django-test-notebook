@@ -60,13 +60,10 @@
 						{% endblock %}
 					</div>
 
-					<div class="question-card mb-2">
-						<a onclick="add_type()"><b>+</b></a>
-						<div class="input-group mb-3 ">
-								<input type="text" class="form-control" placeholder="new type" aria-label="Type" aria-describedby="basic-addon2">
-							<div class="input-group-append">
-							<button class="btn btn-outline-secondary" type="button">确认</button>
-							</div>
+					<div class="question-card">
+						<div class="input-group">
+							<a class="middle mr-2" onclick="add_type()"><b>+</b></a>
+							<input type="text" class="form-control line-input no-background" placeholder="输入新类型，点击左侧‘+’添加" aria-label="Type" id="type-inputer">
 						</div>
 					</div>
 				</div>
@@ -87,7 +84,7 @@
     <!-- END Content -->
 
 	{% block plug-q %}
-		    <div class="big" onclick="add_question()"><strong>+</strong></div>
+		    <div class="big footer" onclick="add_question()"><strong>+</strong></div>
 	{% endblock %}
 </div>
 <!-- END Container -->

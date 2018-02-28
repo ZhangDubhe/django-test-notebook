@@ -12,9 +12,11 @@
 {% endblock %}
 
 {% block type_gorup %}
-	<div class="question-card mb-2">
-		<b>Type 1</b>
+	{% for each in type_content %}
+	<div class="question-card mb-2" id="type_{{ each.id }}">
+		<b>{{ each.name }}</b>
 	</div>
+	{% endfor %}
 {% endblock %}
 
 {% block content %}

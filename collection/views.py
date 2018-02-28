@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseNotFound, Http404
-from .models import User, Question
+from .models import User, Question, Type
 # Other Plugin
 import json
 
@@ -19,10 +19,12 @@ def index(request, **user_id):
 			user = User.objects.get(id=user_id)
 			print(100 * "*")
 			print("user", user)
+			types = load_type_content(user.id)
 			return render(request, 'index.html', {
 				'title': 'Home',
 				'user': user,
-				'info': 'Base'
+				'info': 'Base',
+				'type_content': types
 			})
 		except User.DoesNotExist:
 			results = "No this user?"
@@ -160,3 +162,47 @@ def question(request, user_id, question_id):
 		'username': user.user_name,
 		'user': user
 	})
+
+
+def load_type_content(user_id):
+	try:
+		types = Type.objects.filter(user__id=user_id)
+	except:
+		types = ''
+	return types
+
+def add_items(request, user_id):
+	if request.method == "POST" and request.POST.get('type') and not request.POST.get('question'):
+		editor = user_id
+		new_type = request.POST.get('type')
+		try:
+			added_type = Type(user_id=editor, name=new_type)
+			added_type.save()
+			result = 'Type created'
+			status = 20
+		except Type.DoesNotExist:
+			result = 'Add failed: editor = '+str(user_id)+'type='+new_type
+			status = 0
+	elif request.method == "POST" and request.POST.get('type') and request.POST.get('question'):
+		result = "You update new question? But we don't added this function."
+		status = 21
+	else:
+		result = "Request error"
+		status = 500
+
+	if status == 20:
+		return HttpResponse(json.dumps({
+			'result': result,
+			'status': status,
+			'typeid': added_type.id
+		}))
+	elif status == 21:
+		return HttpResponse(json.dumps({
+			'result': result,
+			'status': status
+		}))
+	else:
+		return HttpResponse(json.dumps({
+			'result': result,
+			'status': status
+		}))
