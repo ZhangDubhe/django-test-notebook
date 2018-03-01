@@ -45,13 +45,11 @@
 
         {% block type-component %}
              <div class="row mt-2">
-			    <div class="col-xs-12 col-sm-12 mb-2 question-card">
-				        <h3  data-toggle="collapse" href="#multiType" role="button" aria-expanded="false" aria-controls="multiType" >
-					 {% block type_header %}Base
-					 {% endblock %}</h3>
+			    <div class="col-xs-12 col-sm-12 mb-2 question-card middle" data-toggle="collapse" href="#multiType" role="button" aria-expanded="false" aria-controls="multiType" id="order_type">
+					 {% block type_header %}Base{% endblock %}
 			    </div>
 
-				<div class="collapse multi-collapse col-xs-12 col-sm-12" id="multiType">
+				<div class="collapse multi-collapse col-sm-12 pl-0 pr-0" id="multiType">
 					<div id="type-content">
 						{% block type_gorup %}
 							<div class="question-card mb-2">

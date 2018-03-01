@@ -13,25 +13,17 @@
 
 {% block type_gorup %}
 	{% for each in type_content %}
-	<div class="question-card mb-2" id="type_{{ each.id }}">
+	<div class="question-card mb-2 type-selector" id="type_{{ each.id }}">
 		<b>{{ each.name }}</b>
 	</div>
 	{% endfor %}
 {% endblock %}
 
 {% block content %}
-	<div class="col-xs-12 col-sm-12 mb-1 question-card">
-		<p>Test WORDS</p>
-	</div>
-	<div class="col-xs-12 col-sm-12 mb-1 question-card">
-		<p>Test WORDS</p>
-	</div>
-	<div class="col-xs-12 col-sm-12 mb-1 question-card">
-		<p>Test WORDS</p>
-	</div>
+
 {% for question in questions  %}
-	<div class="col-xs-12 col-sm-12 mb-1 question-card">
-		<p>Test WORDS</p>
+	<div id="question_{{ question.id }}" class="col-xs-12 col-sm-12 mb-1 question-card">
+		<p>{{ question.name }}</p>
 	</div>
 {% endfor %}
 
@@ -41,11 +33,12 @@
 
 
 {% block extrascript %}
-<script>
-	{% if user.user_name %}
-		login('{{ user.id }}');
-		user_name = '{{ user.user_name }}';
-	{% endif %}
-	check_login();
-</script>
+	<script>
+		{% if user.user_name %}
+			login('{{ user.id }}');
+			user_name = '{{ user.user_name }}';
+		{% endif %}
+		check_login();
+	</script>
+	<script src="{% static "js/load.js" %}"></script>
 {% endblock %}

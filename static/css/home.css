@@ -39,3 +39,6 @@ body{
 .form-control{
 
 }
+.type-selector.active{
+    background-color: #dedede !important;
+}

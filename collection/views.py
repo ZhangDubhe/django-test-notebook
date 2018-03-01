@@ -3,7 +3,7 @@ from django.http import HttpResponse, HttpResponseNotFound, Http404
 from .models import User, Question, Type
 # Other Plugin
 import json
-
+from django.db.models import Q
 
 # Create your views here.
 
@@ -20,11 +20,13 @@ def index(request, **user_id):
 			print(100 * "*")
 			print("user", user)
 			types = load_type_content(user.id)
+			questions = load_question_by(user.id)
 			return render(request, 'index.html', {
 				'title': 'Home',
 				'user': user,
 				'info': 'Base',
-				'type_content': types
+				'type_content': types,
+				'questions': questions
 			})
 		except User.DoesNotExist:
 			results = "No this user?"
@@ -39,15 +41,12 @@ def index(request, **user_id):
 	})
 
 
-
-
-
 def quiz(request, user_id):
 	try:
-		user = User.objects.get(id=user_id)
+		user = User.objects.get(Q(id=user_id) | Q(id=1))
 		print(40 * "*")
 		print("user", user)
-	except:
+	except User.DoesNotExist:
 		pass
 	return render(request, 'quiz.html', {
 		'title': 'Quiz',
@@ -60,15 +59,17 @@ def quiz(request, user_id):
 def collect(request, user_id):
 	try:
 		user = User.objects.get(id=user_id)
-	except User.DoesNotExist :
+	except User.DoesNotExist:
 		return render(request, 'login.html', {
 			'title': 'Login',
 			'other': 'Auth error'
 		})
+	types = load_type_content(user.id)
 	return render(request, 'collect.html', {
-		'title': 'Collection',
-		'info': "Base",
-		'user': user
+		'title': 'Home',
+		'user': user,
+		'info': 'Base',
+		'type_content': types
 	})
 
 
@@ -167,9 +168,18 @@ def question(request, user_id, question_id):
 def load_type_content(user_id):
 	try:
 		types = Type.objects.filter(user__id=user_id)
-	except:
+	except Type.DoesNotExist:
 		types = ''
 	return types
+
+
+def load_question_by(user_id):
+	try:
+		questions = Question.objects.filter(user__id=user_id)
+	except Question.DoesNotExist:
+		questions = None
+	return questions
+
 
 def add_items(request, user_id):
 	if request.method == "POST" and request.POST.get('type') and not request.POST.get('question'):
@@ -183,9 +193,27 @@ def add_items(request, user_id):
 		except Type.DoesNotExist:
 			result = 'Add failed: editor = '+str(user_id)+'type='+new_type
 			status = 0
-	elif request.method == "POST" and request.POST.get('type') and request.POST.get('question'):
-		result = "You update new question? But we don't added this function."
-		status = 21
+	elif request.method == "POST" and request.POST.get('question_type') and request.POST.get('question'):
+		problem = request.POST.get('question')
+		right = request.POST.get('rightAns')
+		wrong1 = request.POST.get('wrongAns1')
+		wrong2 = request.POST.get('wrongAns2')
+		wrong3 = request.POST.get('wrongAns3')
+		wrong_ans = json.dumps({
+			"wrong1": wrong1,
+			"wrong2": wrong2,
+			"wrong3": wrong3
+		})
+		type_id = request.POST.get('question_type')
+		type_name = Type.objects.get(id=type_id).name
+		try:
+			new_question = Question(name=problem, right_answer=right, wrong_answer=wrong_ans, question_type=type_name, user_id=user_id)
+			new_question.save()
+			result = "Already update - " + problem + "- into System."
+			status = 21
+		except Question.DoesNotExist:
+			result = "You update new question? But we don't added this function."
+			status = 0
 	else:
 		result = "Request error"
 		status = 500
@@ -199,7 +227,8 @@ def add_items(request, user_id):
 	elif status == 21:
 		return HttpResponse(json.dumps({
 			'result': result,
-			'status': status
+			'status': status,
+			'questionid': new_question.id
 		}))
 	else:
 		return HttpResponse(json.dumps({
