@@ -22,7 +22,7 @@
 {% block content %}
 
 {% for question in questions  %}
-	<div id="question_{{ question.id }}" class="col-xs-12 col-sm-12 mb-1 question-card">
+	<div id="question_{{ question.id }}" class="col-xs-12 col-sm-12 mb-1 question-card" onclick="open_question(this)">
 		<p>{{ question.name }}</p>
 	</div>
 {% endfor %}

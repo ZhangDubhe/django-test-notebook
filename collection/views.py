@@ -156,12 +156,35 @@ def question(request, user_id, question_id):
 	if user_id:
 		try:
 			user = User.objects.get(pk=user_id)
-		except:
-			pass
-	return render(request, 'index.html', {
-		'title': 'Home',
+		except User.DoesNotExist:
+			msg = " No this user. "
+			return render(request, 'login.html', {
+				'title': '重新登录',
+				'info': '登录',
+				'other': msg
+			})
+	types = load_type_content(user.id)
+	try:
+		current_question = Question.objects.get(id=question_id)
+	except Question.DoesNotExist:
+		questions = load_question_by(user.id)
+		return render(request, 'index.html', {
+			'title': 'Home',
+			'user': user,
+			'info': 'Base',
+			'type_content': types,
+			'questions': questions
+		})
+
+	wrong_answers = json.loads(current_question.wrong_answer)
+	wrong_ans = [wrong_answers['wrong1'], wrong_answers['wrong2'], wrong_answers['wrong3']]
+	return render(request, 'question.html', {
+		'title': '错题第'+str(current_question.id) + '号',
 		'username': user.user_name,
-		'user': user
+		'user': user,
+		'question': current_question,
+		'type_content': types,
+		'wrong_answers': wrong_ans
 	})
 
 

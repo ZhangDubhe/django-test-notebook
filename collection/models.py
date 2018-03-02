@@ -11,7 +11,7 @@ class User(models.Model):
     add_at = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
-        return self.user_name + " create at" +  str(self.add_at)
+        return self.user_name + " create at" + str(self.add_at)
 
 
 class Question(models.Model):   
@@ -35,7 +35,7 @@ class QuizLog(models.Model):
     score = models.IntegerField(null=True, default=0)
 
     def __str__(self):
-        return User.objects.get(pk=self.user).user_name + "got "+ self.score +" at" + self.update_at
+        return User.objects.get(pk=self.user).user_name + "got " + self.score + "at" + self.update_at
 
 
 class QuizDetail(models.Model):

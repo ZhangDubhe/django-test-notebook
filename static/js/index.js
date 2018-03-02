@@ -46,8 +46,8 @@ function save_question() {
 		layer.msg("请输入正确答案");
 		return
 	}
-	if(!ans_4 || !ans_3 || !ans_2){
-		layer.msg("请输入错误答案");
+	if(!ans_2){
+		layer.msg("请至少输入一个错误答案");
 		return
 	}
 	
@@ -92,4 +92,10 @@ function click_type() {
 		//select to filter content of question to display
 		//change content in the interface
 	}
+}
+
+function open_question(obj){
+	var question_id = parseInt($(obj).attr("id").split("_")[1]);
+	new_url = API_PATH + 'u/'+ session.uuid +'/question/' + question_id
+	location.href = new_url;
 }

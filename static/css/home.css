@@ -31,7 +31,7 @@ body{
 .line-input{
     border: none;
     border-bottom:1px solid #2E2D3C;
-
+    border-radius: 0;
 }
 .no-background{
     background: none!important;
