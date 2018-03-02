@@ -99,3 +99,62 @@ function open_question(obj){
 	new_url = API_PATH + 'u/'+ session.uuid +'/question/' + question_id
 	location.href = new_url;
 }
+
+function delete_question(str){
+	if(str == 'all'){
+		var answers = $(".ans-container").find(".be-deleted");
+		var deleted = [];
+		answers.forEach(function (value) {
+			var thisQuestionId = $(value).attr("id");
+			console.log(thisQuestionId.split("_")[1])
+			deleted.join(parseInt(thisQuestionId.split("_")[1]))
+		})
+	}else if( str == 'this'){
+		var questionId = parseInt($(".question-header").attr('id').split("_")[1]);
+		var deleted = [questionId]
+	}
+	data = {};
+	data.questions = JSON.stringify(deleted);
+	data.csrfmiddlewaretoken = CSRFTOKEN;
+	console.log(data);
+	layer.load("正在与服务器发生电波关系^W");
+	$.post(API_PATH+'u/'+session.uuid+"/collect/delete/",data,function(result) {
+	        res = JSON.parse(result);
+	        layer.closeAll('loading');
+	        if(res.status == 20){
+	        	layer.msg("您的题目删除成功了");
+	        	setTimeout(location.href = API_PATH + 'u/' + session.uuid + '/',3000);
+	        }else{
+	        	layer.msg("Request Error");
+	        }
+	});
+
+}
+
+function add_click(obj) {
+	var $question = $(obj).parents('real-question');
+	console.log($(obj));
+	if($question.hasClass("be-deleted")){
+		$question.removeClass('be-deleted');
+	}else{
+		$question.addClass('be-deleted');
+	}
+}
+
+$.fn.longPress = function(fn) {
+    var timeout = undefined;
+    var $this = this;
+    for(var i = 0;i<$this.length;i++){
+        $this[i].addEventListener('touchstart', function(event) {
+            timeout = setTimeout(function(e){
+              $('.select-tip').show();
+            }, 800);
+            //长按时间超过800ms，则执行传入的方法
+        }, false);
+        $this[i].addEventListener('touchend', function(event) {
+            clearTimeout(timeout);
+            //长按时间少于800ms，不会执行传入的方法
+        }, false);
+    }
+}
+

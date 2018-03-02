@@ -8,3 +8,6 @@ $(function () {
 		}
 	})
 })
+
+$('.real-question').longPress(function(e){
+ });

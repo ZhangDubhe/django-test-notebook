@@ -22,8 +22,9 @@
 {% block content %}
 
 {% for question in questions  %}
-	<div id="question_{{ question.id }}" class="col-xs-12 col-sm-12 mb-1 question-card" onclick="open_question(this)">
+	<div id="question_{{ question.id }}" class="col-xs-12 col-sm-12 mb-1 question-card real-question" onclick="open_question(this)">
 		<p>{{ question.name }}</p>
+		<input type="radio" class="select-tip" onclick="add_click(obj)" hidden />
 	</div>
 {% endfor %}
 

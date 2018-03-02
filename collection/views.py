@@ -258,3 +258,25 @@ def add_items(request, user_id):
 			'result': result,
 			'status': status
 		}))
+
+
+def check_user_valid(user_id):
+	return True
+
+
+def delete_items(request, user_id):
+	if request.method == "POST" and request.POST.get('questions') and check_user_valid(user_id):
+		questions = json.loads(request.POST.get('questions'))
+		print('[ + ] POST  | question:', questions)
+		for each in questions:
+			print('[ - ] Delete  | question:', each)
+			del_question = Question.objects.filter(id=each).delete()
+		status = 20
+	else:
+		status = 0
+	return HttpResponse(json.dumps({
+		'status': status
+	}))
+
+
+
