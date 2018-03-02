@@ -42,3 +42,10 @@ body{
 .type-selector.active{
     background-color: #dedede !important;
 }
+.question-keyword{
+    border-bottom: 1px solid #8D8D8D;
+    min-width:3rem;
+    margin-left:1rem;
+    margin-rightt:1rem;
+    display: inline-block;
+}

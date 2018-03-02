@@ -50,7 +50,7 @@ function save_question() {
 		layer.msg("请至少输入一个错误答案");
 		return
 	}
-	
+	layer.msg("正在与服务器发生电波关系^W");
 	$.post(API_PATH + 'u/' + session.uuid +'/collect/add/',{
 		question_type:type_id,
 		question:name,
@@ -60,6 +60,7 @@ function save_question() {
 		wrongAns3:ans_4,
         csrfmiddlewaretoken:CSRFTOKEN
 		},function (res) {
+			layer.closeAll();
 			res = JSON.parse(res);
 			if(res.status == 21){
 				
@@ -117,10 +118,10 @@ function delete_question(str){
 	data.questions = JSON.stringify(deleted);
 	data.csrfmiddlewaretoken = CSRFTOKEN;
 	console.log(data);
-	layer.load("正在与服务器发生电波关系^W");
+	layer.msg("正在与服务器发生电波关系^W");
 	$.post(API_PATH+'u/'+session.uuid+"/collect/delete/",data,function(result) {
 	        res = JSON.parse(result);
-	        layer.closeAll('loading');
+	        setTimeout(layer.closeAll(), 1000);
 	        if(res.status == 20){
 	        	layer.msg("您的题目删除成功了");
 	        	setTimeout(location.href = API_PATH + 'u/' + session.uuid + '/',3000);
@@ -139,22 +140,5 @@ function add_click(obj) {
 	}else{
 		$question.addClass('be-deleted');
 	}
-}
-
-$.fn.longPress = function(fn) {
-    var timeout = undefined;
-    var $this = this;
-    for(var i = 0;i<$this.length;i++){
-        $this[i].addEventListener('touchstart', function(event) {
-            timeout = setTimeout(function(e){
-              $('.select-tip').show();
-            }, 800);
-            //长按时间超过800ms，则执行传入的方法
-        }, false);
-        $this[i].addEventListener('touchend', function(event) {
-            clearTimeout(timeout);
-            //长按时间少于800ms，不会执行传入的方法
-        }, false);
-    }
 }
 
