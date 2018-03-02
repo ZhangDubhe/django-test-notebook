@@ -5,17 +5,23 @@
     <link rel="stylesheet" type="text/css" href="{% static "css/home.css" %}" />
 {% endblock %}
 
+{% block type_gorup %}
+	{% for each in type_content %}
+	<div class="question-card mb-2 type-selector" id="type_{{ each.id }}">
+		<b>{{ each.name }}</b>
+	</div>
+	{% endfor %}
+{% endblock %}
+
 {% block content %}
-
-
 <div class="col-xs-12 col-sm-12 mt-4 mb-4">
 
 <center>
-	<input type="text" class="no-background line-input mr-auto ml-auto mb-2" placeholder="" aria-label="">
-	<input type="text" class="no-background form-control mb-2" placeholder="" aria-label="">
-	<input type="text" class="no-background form-control mb-2" placeholder="" aria-label="">
-	<input type="text" class="no-background form-control mb-2" placeholder="" aria-label="">
-	<input type="text" class="no-background form-control mb-2" placeholder="" aria-label="">
+	<input id="question-name" type="text" class="no-background line-input mr-auto ml-auto mb-2" placeholder="" aria-label="">
+	<input id="ans-1" type="text" class="no-background form-control mb-2" placeholder="right answer" aria-label="">
+	<input id="ans-2" type="text" class="no-background form-control mb-2" placeholder="" aria-label="">
+	<input id="ans-3" type="text" class="no-background form-control mb-2" placeholder="" aria-label="">
+	<input id="ans-4" type="text" class="no-background form-control mb-2" placeholder="" aria-label="">
     <p>may the force be with you.</p>
 </center>
 </div>
@@ -30,9 +36,9 @@
 
 {% endblock %}
 
-	{% block plug-q %}
+{% block plug-q %}
 
-	{% endblock %}
+{% endblock %}
 
 {% block extrascript %}
 <script>
@@ -42,4 +48,5 @@
 {% endif %}
 check_login();
 </script>
+	<script src="{% static "js/load.js" %}"></script>
 {% endblock %}
