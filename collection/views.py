@@ -4,7 +4,7 @@ from .models import User, Question, Type
 # Other Plugin
 import json
 from django.db.models import Q
-
+import random
 # Create your views here.
 
 
@@ -175,16 +175,28 @@ def question(request, user_id, question_id):
 			'type_content': types,
 			'questions': questions
 		})
-
+	right_answer = current_question.right_answer
 	wrong_answers = json.loads(current_question.wrong_answer)
-	wrong_ans = [wrong_answers['wrong1'], wrong_answers['wrong2'], wrong_answers['wrong3']]
+	ans_text = {
+		1: right_answer,
+		2: wrong_answers['wrong1'],
+		3: wrong_answers['wrong2'],
+		4: wrong_answers['wrong3']
+	}
+	ans_index = [1, 2, 3, 4]
+
+	random.shuffle(ans_index)
+	print("[ + ] index:", ans_index)
+	print("[ + ] text:", ans_text)
 	return render(request, 'question.html', {
 		'title': '错题第'+str(current_question.id) + '号',
 		'username': user.user_name,
 		'user': user,
 		'question': current_question,
 		'type_content': types,
-		'wrong_answers': wrong_ans
+		'answers': ans_text,
+		'answers_index': ans_index,
+		'secret': right_answer
 	})
 
 

@@ -17,27 +17,32 @@
 <div class="col-xs-12 col-sm-12 mt-4 mb-4">
 
 <center>
-	<h5 id="question_{{ question.id }}" type="text" class="no-background form-control line-input mr-auto ml-auto mb-2 question-header" placeholder="" aria-label="">
+	<h5 id="question_{{ question.id }}" type="text" class="no-background form-control line-input mr-auto ml-auto mb-2 question-header" placeholder="" aria-label="" contenteditable="true">
 		{{ question.name }}
 	</h5>
-	<button id="ans" type="text" class="no-background form-control mb-2">
-		{{ question.right_answer }}
-	</button>
-	{% for each in wrong_answers %}
-		{% if each != '' %}
-			<button type="text" class="no-background form-control mb-2">
-				{{ each }}
-			</button>
-		{% endif %}
+	{% for i in answers_index %}
+		{% for key, value in answers.items %}
+			{% if i == key and value != '' %}
+				<button type="text" id="answer_{{ i }}" class="no-background form-control mb-2">
+					{{ value }}
+				</button>
+			{% endif %}
+		{% endfor %}
 	{% endfor %}
+
 </center>
+</div>
+
+
 </div>
 <div class="col-xs-12 col-sm-12 mb-4">
 
 <center>
-    <button id='btn-edit' class="btn btn-outline-secondary" type="button"> Edit </button>
+    <button id='btn-edit' class="btn btn-outline-secondary" onclick="edit_question()"  type="button"> Edit </button>
     <button id='btn-save' class="btn btn-outline-secondary" type="button" onclick="save_question()" disabled> Save </button>
+
     <button id='btn-save' class="btn btn-outline-secondary" type="button" onclick="delete_question('this')"> Delete </button>
+
 	<button id='btn-back' class="btn btn-outline-secondary" onclick="location.href = API_PATH + 'u/' + session.uuid + '/' " type="button"> Back </button>
 </center>
 </div>
@@ -53,8 +58,10 @@
 {% if user.user_name %}
 	login('{{ user.id }}');
 	user_name = '{{ user.user_name }}';
+
 {% endif %}
 check_login();
+session.setItem('answer', '{{ secret }}');
 </script>
 	<script src="{% static "js/load.js" %}"></script>
 {% endblock %}

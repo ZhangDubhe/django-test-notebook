@@ -101,6 +101,16 @@ function open_question(obj){
 	location.href = new_url;
 }
 
+function choose_answer(obj) {
+	var ans_id = $(obj).attr('id');
+	
+}
+
+function edit_question() {
+	var questionId = parseInt($(".question-header").attr('id').split("_")[1]);
+	
+}
+
 function delete_question(str){
 	if(str == 'all'){
 		var answers = $(".ans-container").find(".be-deleted");
@@ -111,6 +121,7 @@ function delete_question(str){
 			deleted.join(parseInt(thisQuestionId.split("_")[1]))
 		})
 	}else if( str == 'this'){
+		// 单选或在题目页面里选择
 		var questionId = parseInt($(".question-header").attr('id').split("_")[1]);
 		var deleted = [questionId]
 	}
@@ -132,6 +143,8 @@ function delete_question(str){
 
 }
 
+
+// 多选编辑 理想为长按
 function add_click(obj) {
 	var $question = $(obj).parents('real-question');
 	console.log($(obj));
@@ -141,4 +154,3 @@ function add_click(obj) {
 		$question.addClass('be-deleted');
 	}
 }
-
