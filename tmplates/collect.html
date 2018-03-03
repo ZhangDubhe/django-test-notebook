@@ -28,10 +28,10 @@
 <div class="col-xs-12 col-sm-12 mb-4">
 
 <center>
-    <button class="btn btn-outline-secondary" type="button"> Edit </button>
-    <button class="btn btn-outline-secondary" type="button" onclick="save_question()"> Save </button>
-    <button class="btn btn-outline-secondary" type="button"> Delete </button>
-	<button class="btn btn-outline-secondary" onclick="location.href = API_PATH + 'u/' + session.uuid + '/' " type="button"> Cancel </button>
+    <button id='btn-edit' class="btn btn-outline-secondary" type="button" hidden> Edit </button>
+    <button id='btn-save' class="btn btn-outline-secondary" type="button" onclick="save_question()"> Save </button>
+    <button id='btn-delete' class="btn btn-outline-secondary" type="button" hidden> Delete </button>
+	<button id='btn-back' class="btn btn-outline-secondary" onclick="location.href = API_PATH + 'u/' + session.uuid + '/' " type="button"> Cancel </button>
 </center>
 </div>
 

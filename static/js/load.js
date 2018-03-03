@@ -8,3 +8,10 @@ $(function () {
 		}
 	})
 })
+
+if($('.question-header')){
+	var text = $('.question-header').text();
+	text = text.replace(/[\(\（]/,'<span class="question-keyword">');
+	text = text.replace(/[\(\）]/,'</span>');
+	$('.question-header').html(text);
+}

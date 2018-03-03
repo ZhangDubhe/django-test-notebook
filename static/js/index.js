@@ -50,7 +50,7 @@ function save_question() {
 		layer.msg("请至少输入一个错误答案");
 		return
 	}
-	
+	layer.msg("正在与服务器发生电波关系^W");
 	$.post(API_PATH + 'u/' + session.uuid +'/collect/add/',{
 		question_type:type_id,
 		question:name,
@@ -60,6 +60,7 @@ function save_question() {
 		wrongAns3:ans_4,
         csrfmiddlewaretoken:CSRFTOKEN
 		},function (res) {
+			layer.closeAll();
 			res = JSON.parse(res);
 			if(res.status == 21){
 				
@@ -98,4 +99,58 @@ function open_question(obj){
 	var question_id = parseInt($(obj).attr("id").split("_")[1]);
 	new_url = API_PATH + 'u/'+ session.uuid +'/question/' + question_id
 	location.href = new_url;
+}
+
+function choose_answer(obj) {
+	var ans_id = $(obj).attr('id');
+	
+}
+
+function edit_question() {
+	var questionId = parseInt($(".question-header").attr('id').split("_")[1]);
+	
+}
+
+function delete_question(str){
+	if(str == 'all'){
+		var answers = $(".ans-container").find(".be-deleted");
+		var deleted = [];
+		answers.forEach(function (value) {
+			var thisQuestionId = $(value).attr("id");
+			console.log(thisQuestionId.split("_")[1])
+			deleted.join(parseInt(thisQuestionId.split("_")[1]))
+		})
+	}else if( str == 'this'){
+		// 单选或在题目页面里选择
+		var questionId = parseInt($(".question-header").attr('id').split("_")[1]);
+		var deleted = [questionId]
+	}
+	data = {};
+	data.questions = JSON.stringify(deleted);
+	data.csrfmiddlewaretoken = CSRFTOKEN;
+	console.log(data);
+	layer.msg("正在与服务器发生电波关系^W");
+	$.post(API_PATH+'u/'+session.uuid+"/collect/delete/",data,function(result) {
+	        res = JSON.parse(result);
+	        setTimeout(layer.closeAll(), 1000);
+	        if(res.status == 20){
+	        	layer.msg("您的题目删除成功了");
+	        	setTimeout(location.href = API_PATH + 'u/' + session.uuid + '/',3000);
+	        }else{
+	        	layer.msg("Request Error");
+	        }
+	});
+
+}
+
+
+// 多选编辑 理想为长按
+function add_click(obj) {
+	var $question = $(obj).parents('real-question');
+	console.log($(obj));
+	if($question.hasClass("be-deleted")){
+		$question.removeClass('be-deleted');
+	}else{
+		$question.addClass('be-deleted');
+	}
 }
