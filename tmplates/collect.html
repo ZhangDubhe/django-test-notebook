@@ -13,25 +13,47 @@
 	{% endfor %}
 {% endblock %}
 
+
+{% block branding %}
+	<span class="icon icon-back" onclick="location.href = API_PATH + 'u/' + session.uuid + '/' "> </span>
+{% endblock %}
+
+
+
+
 {% block content %}
-<div class="col-xs-12 col-sm-12 mt-4 mb-4">
+<div class="col-xs-12 col-sm-12  mb-4">
 
 <center>
-	<textarea id="question-name" type="text" class="no-background form-control line-input mr-auto ml-auto mb-2" placeholder="" aria-label=""></textarea>
-	<input id="ans-1" type="text" class="no-background form-control mb-2" placeholder="right answer" aria-label="">
-	<input id="ans-2" type="text" class="no-background form-control mb-2" placeholder="first wrong answer" aria-label="">
-	<input id="ans-3" type="text" class="no-background form-control mb-2" placeholder="" aria-label="">
-	<input id="ans-4" type="text" class="no-background form-control mb-2" placeholder="" aria-label="">
+	<div class="col-10 col-sm-8">
+	<textarea id="question-name" type="text" class="no-background line-input mr-auto ml-auto" placeholder="" aria-label=""></textarea>
+	<input id="ans-1" type="text" class="answer-card" placeholder="right answer" aria-label="">
+	<input id="ans-2" type="text" class="answer-card" placeholder="first wrong answer" aria-label="">
+	<input id="ans-3" type="text" class="answer-card" placeholder="" aria-label="">
+	<input id="ans-4" type="text" class="answer-card" placeholder="" aria-label="">
     <p>may the force be with you.</p>
+	</div>
 </center>
 </div>
 <div class="col-xs-12 col-sm-12 mb-4">
 
 <center>
-    <button id='btn-edit' class="btn btn-outline-secondary" type="button" hidden> Edit </button>
-    <button id='btn-save' class="btn btn-outline-secondary" type="button" onclick="save_question()"> Save </button>
-    <button id='btn-delete' class="btn btn-outline-secondary" type="button" hidden> Delete </button>
-	<button id='btn-back' class="btn btn-outline-secondary" onclick="location.href = API_PATH + 'u/' + session.uuid + '/' " type="button"> Cancel </button>
+<div class="col-10 col-sm-6 mb-4 row">
+
+	<div class="col-6 align-left">
+
+	    <span id='btn-tag' class="icon question-tag" onclick="choose_tag()" > </span>
+	    <span id='btn-save' class="icon question-save" onclick="save_question()" > </span>
+
+	</div>
+
+    <div class="col-6 align-right">
+	    <span id='btn-save' class="icon question-delete" onclick="delete_question('this')">  </span>
+    </div>
+</div>
+
+
+
 </center>
 </div>
 

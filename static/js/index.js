@@ -154,3 +154,17 @@ function add_click(obj) {
 		$question.addClass('be-deleted');
 	}
 }
+
+function control_panel() {
+	var panel = $("#user-panel");
+	console.log("Click here!");
+	if($(panel).hasClass('active')){
+		$(panel).removeClass('active')
+		$(panel).hide();
+		$(".nav-wrapper").hide();
+	}else{
+		$(panel).addClass('active')
+		$(panel).show();
+		$(".nav-wrapper").show();
+	}
+}

@@ -6,7 +6,11 @@ $(function () {
 		}else{
 			$(this).addClass("active");
 		}
-	})
+	});
+	$(".nav-wrapper").click(function () {
+		control_panel();
+	});
+	
 })
 
 if($('.question-header')){
@@ -15,3 +19,4 @@ if($('.question-header')){
 	text = text.replace(/[\(\）]/,'</span>');
 	$('.question-header').html(text);
 }
+

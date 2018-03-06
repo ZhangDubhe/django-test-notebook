@@ -23,50 +23,68 @@
 <div id="container">
     <!-- Banner -->
 	{% block banner %}
-	    <div id="header" class="navbar navbar-default navbar-fixed-top navbar-light bg-light">
-    {% block branding %}
-        <a id="site-name" class="navbar-brand" href="#">Notebook</a>
-    {% endblock %}
+	    <div id="header" class="head-bar row">
+			<div class="align-left font-type col-6">
+				{% block branding %}
+					<span class="icon icon-menu" onclick="control_panel()"> </span>
+				{% endblock %}
+				{% block header %}Base{% endblock %}
+			</div>
+	        {% block branding-right %}
+            <div class="align-right col-6">
+		        <span class="icon icon-search" onclick="search()"> </span>
+		        <span class="icon icon-add" onclick="add_question()"> </span>
+	        </div>
+	        {% endblock %}
+		</div>
 
-    <nav class="navbar">
-        {% if user.user_name %}
-            <a class="nav-link">{{ user.user_name }}</a>/
-            <a class="nav-link" href="{% url 'login' %}" onclick="logout()">Logout</a>
-        {% endif %}
-        {% if not user.user_name %}
-            <a class="nav-link" href="{% url 'login' %}">Login</a>
-        {% endif %}
-    </nav>
-</div>
 	{% endblock %}
+
+
+{% block type-component %}
+	<div class="nav-wrapper"></div>
+    <nav id="user-panel" class="left-panel">
+        <div class="avatar-card mb-4">
+            <div class="avatar-img-container ">
+	            <img class="avatar-img"/>
+            </div>
+			<div class="avatar-profile">
+		        {% if user.user_name %}
+	            <h5>{{ user.user_name }}</h5>
+	            <p><a  href="{% url 'login' %}" onclick="logout()">Logout</a></p>
+		        {% endif %}
+		        {% if not user.user_name %}
+		            <a href="{% url 'login' %}">Login</a>
+		        {% endif %}
+			</div>
+		</div>
+        <br class="clear" />
+
+		<div id="type-content" class="">
+			<div class="font-type pl-3">Base</div>
+		{% block type_gorup %}
+			{% for each in type_content %}
+			<div class="form-control mb-2 type-selector" id="type_{{ each.id }}">
+				<b>{{ each.name }}</b>
+			</div>
+			{% endfor %}
+		{% endblock %}
+			<div class="input-group">
+				<a class="pl-3 middle mr-2" onclick="add_type()"><b>+</b></a>
+				<input type="text" class="form-control line-input no-background" placeholder="输入新类型，点击左侧‘+’添加" aria-label="Type" id="type-inputer" hidden>
+			</div>
+		</div>
+
+        <div class="">
+			<div class="font-type pl-3">Quiz</div>
+        </div>
+    </nav>
+{% endblock %}
 
     <!-- Content -->
     <div id="content"  class="container px-2">
 
-        {% block type-component %}
-             <div class="row mt-2">
-			    <div class="col-xs-12 col-sm-12 mb-2 question-card middle" data-toggle="collapse" href="#multiType" role="button" aria-expanded="false" aria-controls="multiType" id="order_type">
-					 {% block type_header %}Base{% endblock %}
-			    </div>
 
-				<div class="collapse multi-collapse col-sm-12 pl-0 pr-0" id="multiType">
-					<div id="type-content">
-						{% block type_gorup %}
-							<div class="question-card mb-2">
-								<b>Type 1</b>
-							</div>
-						{% endblock %}
-					</div>
-
-					<div class="question-card">
-						<div class="input-group">
-							<a class="middle mr-2" onclick="add_type()"><b>+</b></a>
-							<input type="text" class="form-control line-input no-background" placeholder="输入新类型，点击左侧‘+’添加" aria-label="Type" id="type-inputer">
-						</div>
-					</div>
-				</div>
-            </div>
-        {% endblock %}
 
 	    <div class="row mt-4 mb-2">
             {% block content %}
@@ -81,9 +99,7 @@
     </div>
     <!-- END Content -->
 
-	{% block plug-q %}
-		    <div class="big footer" onclick="add_question()"><strong>+</strong></div>
-	{% endblock %}
+
 </div>
 <!-- END Container -->
 <script>

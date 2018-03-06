@@ -1,9 +1,181 @@
-.question-card{
-    width:100%;
-    padding:0.8rem 1.4rem;
-    font-size:0.8rem;
-    height:auto;
+:root{
+    --white:#fff;
+}
+html{
+    font-size: 0.625rem;
+}
+@font-face {
+    font-family: Neon;
+    src: url("../fonts/Neon.ttf");
+}
+
+.row{
+    margin-right: 0!important;
+    margin-left: 0!important;
+}
+.col-6{
+    padding-right: 0;
+    padding-left: 0;
+}
+.head-bar{
+    border-bottom: 0;
+    padding:1rem 2rem;
+    height: auto;
+    width: 100%;
+    background-color:  var(--white);
+    box-shadow: 0 1px 1px rgba(128, 128,128, 0.15);
+}
+.icon-menu{
+    background-image: url("../imgs/icon-menu.png");
+}
+.align-left, .align-right{
+    display: inline-block;
+    height: 3rem;
+}
+.align-left>div,.head-bar span,span.icon{
+    display: inline-block;
+    margin-left: 0.4rem;
+    margin-right: 0.4rem;
+}
+.align-right{
+    text-align: right;
+}
+.align-left{
+    text-align: left;
+}
+.head-bar>.align-right>span{
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+.font-type{
+    font-size: 3rem;
+    font-family: Neon;
+}
+nav{
+    display: none;
+    width:60%;
+    height:100vh;
+    position:fixed;
+    left: 0;
+    top: 0;
+    z-index: 999;
     background-color: #fafafa;
+    transition-duration: 500ms;
+}
+.nav-wrapper{
+    position:fixed;
+    left: 0;
+    top: 0;
+    z-index: 200;
+    display: none;
+    width: 100%;
+    height: 100%;
+    background-color: #EFEFEF;
+    opacity: 0.6;
+}
+.avatar-card{
+    width:100%;
+    height: 10rem;
+    border-bottom: 0.5px solid #9CA0A0;
+}
+.left-panel>div{
+    padding-left: 2rem;
+}
+.avatar-img-container{
+    width:6rem;
+    height:6rem;
+    float: left;
+    margin:2rem;
+    margin-left:0;
+}
+.avatar-img{
+    width: 100%;
+    height: 100%;
+    background-color: #8D8D8D;
+    border-radius: 4rem;
+}
+.avatar-profile{
+    width:6rem;
+    float: left;
+    margin-top:2rem;
+    margin-left:1rem;
+}
+.avatar-profile h5{
+    font-size: 3rem;
+    font-family: Neon;
+    margin-bottom: 0.4rem;
+}
+.avatar-profile p{
+    font-size: 2rem;
+    font-family: Neon;
+}
+.clear{
+    clear:both;
+}
+.question-body{
+    margin-top: 8rem;
+}
+
+.question-card{
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 25px;
+    width:85%;
+    padding:0.8rem 1.4rem;
+    font-size:1rem;
+    height:auto;
+    background-color: var(--white);
+    border-width : 0px;
+    box-shadow: 0 1px 1px rgba(70, 92, 127, 0.2);
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+}
+button.answer-card, input.answer-card{
+    width: 100%;
+    height: 4rem;
+    margin-bottom:2rem;
+    background:transparent;
+    border:none;
+    border-width : 0px;
+    box-shadow: 0 1px 1px rgba(70, 92, 127, 0.2);
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    padding-left: 1rem;
+}
+p {
+    margin-top: 0;
+     margin-bottom: 0;
+}
+.icon{
+    width:2rem;
+    height:2rem;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    display: block;
+}
+.question-edit{
+    background-image: url("../imgs/icon-edit.png");
+}
+.icon-back{
+    background-image: url("../imgs/icon-back.png");
+}
+.icon-add{
+    background-image: url("../imgs/icon-add.png");
+}
+.icon-search{
+    background-image: url("../imgs/icon-search.png");
+}
+.question-delete{
+    background-image: url("../imgs/icon-delete.png");
+}
+.question-save{
+    background-image: url("../imgs/icon-save.png");
+}
+.question-tag{
+    background-image: url("../imgs/icon-tag.png");
 }
 .big{
     font-size:2rem;
@@ -16,7 +188,7 @@
     line-height: 2rem;
     height:2rem;
       width:100%;
-    background-color: #fafafa;
+    background-color: var(--white) ;
     position: fixed;
     right: 0;
     bottom: 1rem;
@@ -25,19 +197,27 @@
 }
 
 body{
-    background-color: rgba(0, 222, 209, 0.15);
+    background-color:  var(--white);
     height: 100vh;
 }
 .line-input{
     border: none;
     border-bottom:1px solid #2E2D3C;
     border-radius: 0;
+    width: 100%;
+    margin-top: 7rem;
+    margin-bottom: 5rem;
 }
 .no-background{
     background: none!important;
 }
 .form-control{
-
+    box-shadow: none;
+    border: none;
+    background-color: transparent;
+}
+.type-selector{
+    padding-left:1rem;
 }
 .type-selector.active{
     background-color: #dedede !important;
@@ -48,4 +228,10 @@ body{
     margin-left:1rem;
     margin-rightt:1rem;
     display: inline-block;
+}
+*{
+    color:#969696;
+}
+.question{
+    font-family: 'A+9rnz-凸版文久明朝 Pr6N R';
 }
