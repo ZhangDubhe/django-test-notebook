@@ -11,7 +11,12 @@
 	<span class="icon icon-back" onclick="location.href = API_PATH + 'u/' + session.uuid + '/' "> </span>
 {% endblock %}
 
+{% block header %}
+	<div class="ban-header">New</div>
+{% endblock %}
 
+{% block branding-right %}
+{% endblock %}
 
 
 {% block content %}
@@ -39,7 +44,7 @@
 		    <span id='btn-tag' class="icon question-tag" onclick="choose_tag()" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" > </span>
 			<div id="choose_tag" class="dropdown-menu">
 			{% for each in type_content %}
-				<div class="dropdown-item type-selector" id="type_{{ each.id }}">
+				<div class="dropdown-item mb-2 type-selector" id="type_{{ each.id }}">
 					<b>{{ each.name }}</b>
 				</div>
 			{% endfor %}

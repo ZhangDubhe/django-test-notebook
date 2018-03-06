@@ -64,7 +64,7 @@
 			<div class="font-type pl-3">Base</div>
 		{% block type_gorup %}
 			{% for each in type_content %}
-			<div class="form-control mb-2 type-selector" id="type_{{ each.id }}">
+			<div class="dropdown-item mb-2 type-selector"id="type_{{ each.id }}">
 				<b>{{ each.name }}</b>
 			</div>
 			{% endfor %}

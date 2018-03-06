@@ -8,7 +8,7 @@ function add_type(){
 			},function (res) {
 				res = JSON.parse(res);
 				if(res.status == 20){
-					var add_html = "<div class='question-card mb-2' id='type_"+ res.typeid +"'><b>"+newAdded+"</b></div>";
+					var add_html = "<div class='dropdown-item mb-2 type-selector' id='type_"+ res.typeid +"'><b>"+newAdded+"</b></div>";
 					$("#type-content").append(add_html);
 					$('.type-adder').hide();
 				}else{
