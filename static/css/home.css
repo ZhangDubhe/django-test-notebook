@@ -4,6 +4,7 @@
 html{
     font-size: 0.625rem;
 }
+
 @font-face {
     font-family: Neon;
     src: url("../fonts/Neon.ttf");
@@ -146,7 +147,7 @@ button.answer-card, input.answer-card{
 }
 p {
     margin-top: 0;
-     margin-bottom: 0;
+    margin-bottom: 0;
 }
 .icon{
     width:2rem;
@@ -200,12 +201,20 @@ body{
     background-color:  var(--white);
     height: 100vh;
 }
+
+button.answer-card, input.answer-card,.line-input, .question-body,.question-card p, .question-card,.form-control,.type-selector b{
+    font-size: 1.5rem;
+}
+
+.type-adder{
+    display: none;
+}
 .line-input{
     border: none;
     border-bottom:1px solid #2E2D3C;
     border-radius: 0;
     width: 100%;
-    margin-top: 7rem;
+    margin-top: 5rem;
     margin-bottom: 5rem;
 }
 .no-background{
@@ -215,6 +224,10 @@ body{
     box-shadow: none;
     border: none;
     background-color: transparent;
+    font-size: 1.4rem;
+}
+.form-line{
+    border-bottom: 1px solid #2E2D3C;
 }
 .type-selector{
     padding-left:1rem;
@@ -234,4 +247,29 @@ body{
 }
 .question{
     font-family: 'A+9rnz-凸版文久明朝 Pr6N R';
+}
+.layer-content{
+    background-color: var(--white);
+    width:100vw;
+    padding-left: 3rem;
+    padding-right: 3rem;
+    margin-top: auto;
+    margin-bottom: auto;
+    z-index: 10001;
+    position: fixed;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    left: 0;
+    top:0;
+}
+.layer-content>input, .layer-content>span{
+    display: inline-block;
+
+    margin:0;
+
+}
+.layer-content>span{
+    margin-left:1rem;
+    position: relative;
+    top:0.5rem;
 }

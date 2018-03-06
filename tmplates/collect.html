@@ -5,13 +5,6 @@
     <link rel="stylesheet" type="text/css" href="{% static "css/home.css" %}" />
 {% endblock %}
 
-{% block type_gorup %}
-	{% for each in type_content %}
-	<div class="question-card mb-2 type-selector" id="type_{{ each.id }}">
-		<b>{{ each.name }}</b>
-	</div>
-	{% endfor %}
-{% endblock %}
 
 
 {% block branding %}
@@ -42,7 +35,16 @@
 
 	<div class="col-6 align-left">
 
-	    <span id='btn-tag' class="icon question-tag" onclick="choose_tag()" > </span>
+	   <div class="btn-group dropup">
+		    <span id='btn-tag' class="icon question-tag" onclick="choose_tag()" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" > </span>
+			<div id="choose_tag" class="dropdown-menu">
+			{% for each in type_content %}
+				<div class="dropdown-item type-selector" id="type_{{ each.id }}">
+					<b>{{ each.name }}</b>
+				</div>
+			{% endfor %}
+			</div>
+	   </div>
 	    <span id='btn-save' class="icon question-save" onclick="save_question()" > </span>
 
 	</div>
@@ -51,6 +53,7 @@
 	    <span id='btn-save' class="icon question-delete" onclick="delete_question('this')">  </span>
     </div>
 </div>
+
 
 
 

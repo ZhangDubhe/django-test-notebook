@@ -13,5 +13,6 @@ urlpatterns = [
     path('account/login-post', views.login, name="login-post"),
     path('account/register', views.init_register, name="register"),
     path('account/register-post', views.register, name="register-post"),
+    path('u/<int:user_id>/search', views.search_questions, name="search"),
 
 ]

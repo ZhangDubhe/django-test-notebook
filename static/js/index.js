@@ -10,6 +10,7 @@ function add_type(){
 				if(res.status == 20){
 					var add_html = "<div class='question-card mb-2' id='type_"+ res.typeid +"'><b>"+newAdded+"</b></div>";
 					$("#type-content").append(add_html);
+					$('.type-adder').hide();
 				}else{
 					layer.msg(res.result)
 				}
@@ -120,7 +121,7 @@ function delete_question(str){
 			console.log(thisQuestionId.split("_")[1])
 			deleted.join(parseInt(thisQuestionId.split("_")[1]))
 		})
-	}else if( str == 'this'){
+	}else if( str == 'this' || !str){
 		// 单选或在题目页面里选择
 		var questionId = parseInt($(".question-header").attr('id').split("_")[1]);
 		var deleted = [questionId]
@@ -129,6 +130,7 @@ function delete_question(str){
 	data.questions = JSON.stringify(deleted);
 	data.csrfmiddlewaretoken = CSRFTOKEN;
 	console.log(data);
+	close_delete();
 	layer.msg("正在与服务器发生电波关系^W");
 	$.post(API_PATH+'u/'+session.uuid+"/collect/delete/",data,function(result) {
 	        res = JSON.parse(result);
@@ -167,4 +169,35 @@ function control_panel() {
 		$(panel).show();
 		$(".nav-wrapper").show();
 	}
+}
+
+function search(){
+	var shadow = '<div class="layui-layer-shade" id="layui-layer-shade1" style="z-index:999; background-color:#000; opacity:0.3; filter:alpha(opacity=30);" onclick="close_search()"></div>';
+	var content =  '<div class="layer-content"><input id="search-content"  class="question-card" type="text" placeholder="search..."><span class="icon icon-search" onclick="search_question()"> </span></div>';
+	$("body").append(shadow);
+	$("body").append(content)
+}
+function open_delete(){
+	var shadow = '<div class="layui-layer-shade delete-windows" id="layui-layer-shade1" style="z-index:999; background-color:#000; opacity:0.3; filter:alpha(opacity=30);" ></div>';
+	var content =  '<center class="delete-windows" style="position: fixed;left: 0;top: 40%;width:100%;z-index:1099;" ><div class="question-card">嘤嘤嘤，你真的要删掉我吗？</div><button class="btn btn-default" onclick="close_delete()">还是不忍心</button><button class="btn btn-secondary" onclick="delete_question()">狠心不要你了</button></center>';
+	$("body").append(shadow);
+	$("body").append(content);
+
+}
+
+function close_delete() {
+	$(".delete-windows").remove();
+}
+function search_question() {
+	var text = $("#search-content").val();
+	console.log(text);
+	var value = $("#search-content").val().toLowerCase();
+    $(".question-card.real-question").filter(function() {
+      $(this).toggle($(this).children('p').text().toLowerCase().indexOf(value) > -1)
+    });
+}
+function close_search() {
+	$("#layui-layer-shade1").remove();
+	$(".layer-content").remove();
+	
 }

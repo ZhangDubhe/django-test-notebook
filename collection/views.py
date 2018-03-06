@@ -244,7 +244,7 @@ def add_items(request, user_id):
 		try:
 			new_question = Question(name=problem, right_answer=right, wrong_answer=wrong_ans, question_type=type_name, user_id=user_id)
 			new_question.save()
-			result = "Already update - " + problem + "- into System."
+			result = "Already updated into System."
 			status = 21
 		except Question.DoesNotExist:
 			result = "You update new question? But we don't added this function."
@@ -279,7 +279,6 @@ def check_user_valid(user_id):
 def delete_items(request, user_id):
 	if request.method == "POST" and request.POST.get('questions') and check_user_valid(user_id):
 		questions = json.loads(request.POST.get('questions'))
-		print('[ + ] POST  | question:', questions)
 		for each in questions:
 			print('[ - ] Delete  | question:', each)
 			del_question = Question.objects.filter(id=each).delete()
@@ -290,5 +289,20 @@ def delete_items(request, user_id):
 		'status': status
 	}))
 
+def search_questions(request, user_id, string):
+	if request.method == "POST" and request.GET.get('questions'):
+		status = 200
+		question_result = Question.objects.filter(name__contains=string, user__id=user_id)
+		res_list = []
+		for each in question_result:
+			res = {}
+			res["name"] = each.name
+			res["id"] = each.id
+			res_list.append(res)
+		results = res_list
 
+	return HttpResponse(json.dumps({
+		'status': status,
+		'questions': results
+	}))
 

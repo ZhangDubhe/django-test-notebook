@@ -28,7 +28,7 @@
 
 <center >
 	<div class="col-10 col-sm-8">
-		<h5 id="question_{{ question.id }}" type="text" class="no-background form-control line-input mr-auto ml-auto mb-4 question-header" placeholder="" aria-label="" contenteditable="false">
+		<h5 id="question_{{ question.id }}" type="text" class="form-control line-input mr-auto ml-auto mb-4 question-header" placeholder="" aria-label="" contenteditable="false">
 			{{ question.name }}
 		</h5>
 		{% for i in answers_index %}
@@ -57,7 +57,7 @@
 	</div>
 
     <div class="col-6 align-right">
-	    <span id='btn-save' class="icon question-delete" onclick="delete_question('this')">  </span>
+	    <span id='btn-save' class="icon question-delete" onclick="open_delete()">  </span>
     </div>
 </div>
 </center>

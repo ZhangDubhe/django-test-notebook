@@ -69,9 +69,14 @@
 			</div>
 			{% endfor %}
 		{% endblock %}
-			<div class="input-group">
-				<a class="pl-3 middle mr-2" onclick="add_type()"><b>+</b></a>
-				<input type="text" class="form-control line-input no-background" placeholder="输入新类型，点击左侧‘+’添加" aria-label="Type" id="type-inputer" hidden>
+			<div class="input-group" style="width:88%;">
+				<div class="input-group-prepend">
+					<a class="pl-3 middle mr-2" onclick="$('.type-adder').show();"><b>+</b></a>
+				</div>
+				<input type="text" class="type-adder form-control no-background form-line" placeholder="输入新类型" aria-label="Type" id="type-inputer" >
+				<div class="type-adder input-group-append">
+					<button class="btn btn-outline-secondary" type="button" onclick="add_type()">确定</button>
+				</div>
 			</div>
 		</div>
 
