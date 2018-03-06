@@ -19,3 +19,7 @@ Or If you want to let others see your demo through Internet, then:
 
 Then search it in browser.
 
+## Database security strategy
+1. Remove from git 
+2. Backup every hour
+3. Keep backup as 3 days
