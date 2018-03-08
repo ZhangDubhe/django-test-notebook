@@ -173,9 +173,9 @@ function control_panel() {
 
 function search(){
 	var shadow = '<div class="layui-layer-shade" id="layui-layer-shade1" style="z-index:999; background-color:#000; opacity:0.3; filter:alpha(opacity=30);" onclick="close_search()"></div>';
-	var content =  '<div class="layer-content"><input id="search-content"  class="question-card" type="text" placeholder="search..."><span class="icon icon-search" onclick="search_question()"> </span></div>';
+	var content =  '<div class="layer-content"><input id="search-content" oninput="search_question()" class="question-card" type="text" placeholder="search..."><span class="icon icon-search" onclick="search_question()"> </span></div>';
 	$("body").append(shadow);
-	$("body").append(content)
+	$("body").append(content);
 }
 function open_delete(){
 	var shadow = '<div class="layui-layer-shade delete-windows" id="layui-layer-shade1" style="z-index:999; background-color:#000; opacity:0.3; filter:alpha(opacity=30);" ></div>';

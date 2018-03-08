@@ -46,7 +46,7 @@
     <nav id="user-panel" class="left-panel">
         <div class="avatar-card mb-4">
             <div class="avatar-img-container ">
-	            <img class="avatar-img"/>
+	            <img class="avatar-img" src="{% static 'imgs/avatar/avatar.png' %}"/>
             </div>
 			<div class="avatar-profile">
 		        {% if user.user_name %}
@@ -60,22 +60,24 @@
 		</div>
         <br class="clear" />
 
-		<div id="type-content" class="">
+		<div  class="">
 			<div class="font-type pl-3">Base</div>
-		{% block type_gorup %}
-			{% for each in type_content %}
-			<div class="dropdown-item mb-2 type-selector"id="type_{{ each.id }}">
-				<b>{{ each.name }}</b>
+			<div id="type-content">
+				{% block type_gorup %}
+					{% for each in type_content %}
+					<div class="dropdown-item mb-2 type-selector"id="type_{{ each.id }}">
+						<b>{{ each.name }}</b>
+					</div>
+					{% endfor %}
+				{% endblock %}
 			</div>
-			{% endfor %}
-		{% endblock %}
 			<div class="input-group" style="width:88%;">
 				<div class="input-group-prepend">
 					<a class="pl-3 middle mr-2" onclick="$('.type-adder').show();"><b>+</b></a>
 				</div>
-				<input type="text" class="type-adder form-control no-background form-line" placeholder="输入新类型" aria-label="Type" id="type-inputer" >
+				<input type="text" class="type-adder form-control no-background " aria-label="Type" id="type-inputer" >
 				<div class="type-adder input-group-append">
-					<button class="btn btn-outline-secondary" type="button" onclick="add_type()">确定</button>
+					<span class='icon icon-click' onclick="add_type()"></span>
 				</div>
 			</div>
 		</div>

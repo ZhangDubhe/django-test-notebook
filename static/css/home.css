@@ -18,6 +18,26 @@ html{
     padding-right: 0;
     padding-left: 0;
 }
+
+.dropdown-item.active, .dropdown-item:active {
+
+    text-decoration: none;
+    background-color: transparent !important;
+}
+.dropdown-menu{
+    border-radius: 5px;
+    border: none;
+    box-shadow: 0 1px 5px rgba(128, 128,128, 0.65);
+}
+.dropup .dropdown-menu {
+    padding-left: 2rem;
+    padding-right: 2rem;
+}
+input, button, input:focus , button:focus, textarea:focus{
+    outline: none !important;
+    outline-width: 0;
+}
+
 .head-bar{
     border-bottom: 0;
     padding:1rem 2rem;
@@ -33,11 +53,14 @@ html{
     display: inline-block;
     height: 3rem;
 }
-.align-left>div,.head-bar span,span.icon{
+span.icon{
     display: inline-block;
-    margin-left: 0.4rem;
-    margin-right: 0.4rem;
 }
+.align-left>div, .align-left span{
+    display: inline-block;
+    margin-right: 1rem;
+}
+
 .align-right{
     text-align: right;
 }
@@ -47,6 +70,7 @@ html{
 .head-bar>.align-right>span{
     margin-top: 0.5rem;
     margin-bottom: 0.5rem;
+    margin-left: 1rem;
 }
 .font-type{
     font-size: 3rem;
@@ -166,6 +190,9 @@ p {
 .icon-add{
     background-image: url("../imgs/icon-add.png");
 }
+.icon-click{
+    background-image: url("../imgs/icon-click.png");
+}
 .icon-search{
     background-image: url("../imgs/icon-search.png");
 }
@@ -233,7 +260,7 @@ button.answer-card, input.answer-card,.line-input, .question-body,.question-card
     padding-left:1rem;
 }
 .type-selector.active{
-    background-color: #dedede !important;
+    border-bottom: 1px solid #2E2D3C;
 }
 .question-keyword{
     border-bottom: 1px solid #8D8D8D;
