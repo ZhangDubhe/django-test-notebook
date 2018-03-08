@@ -23,3 +23,10 @@ Then search it in browser.
 1. Remove from git 
 2. Backup every hour
 3. Keep backup as 3 days
+
+## First Close many issues
+For memory.
+
+To close an issue in the same repository, use one of the keywords above followed by a reference to the issue number. For example, a commit message with Fixes #45 will close issue 45 in that repository once the commit is merged into the default branch.
+
+If the commit is in a non-default branch, the issue will remain open and the issue will be referenced with a tooltip.
