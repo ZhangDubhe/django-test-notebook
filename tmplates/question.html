@@ -9,6 +9,9 @@
 	<span class="icon icon-back" onclick="location.href = API_PATH + 'u/' + session.uuid + '/' "> </span>
 {% endblock %}
 
+{% block header %}
+	<div class="ban-header">{{ question.question_type }}</div>
+{% endblock %}
 
 
 {% block branding-right %}
@@ -24,19 +27,15 @@
 {% endblock %}
 
 {% block content %}
-<div class="col-12 col-sm-12 question-body mb-4">
+<div class="col-12 col-sm-12 mb-4">
 
 <center >
-	<div class="col-10 col-sm-8">
-		<h5 id="question_{{ question.id }}" type="text" class="form-control line-input mr-auto ml-auto mb-4 question-header" placeholder="" aria-label="" contenteditable="false">
-			{{ question.name }}
-		</h5>
+	<div class="col-10 col-sm-8 question-body ">
+		<h5 id="question_{{ question.id }}" type="text" class="form-control line-input mr-auto ml-auto mb-4 question-header" placeholder="" aria-label="" contenteditable="false">{{ question.name }}</h5>
 		{% for i in answers_index %}
 			{% for key, value in answers.items %}
 				{% if i == key and value != '' %}
-					<button type="text" id="answer_{{ i }}" class="answer-card">
-						{{ value }}
-					</button>
+					<div id="answer_{{ i }}" class="answer-card">{{ value }}</div>
 				{% endif %}
 			{% endfor %}
 		{% endfor %}
@@ -46,28 +45,47 @@
 
 
 </div>
-<center>
-<div class="col-10 col-sm-6 mb-4 row">
 
-	<div class="col-6 align-left">
-    <span id='btn-edit' class="icon question-edit" onclick="edit_question()" >  </span>
-    <span id='btn-tag' class="icon icon-save" onclick="choose_tag()" disabled> </span>
-    <span id='btn-save' class="icon icon-save" onclick="save_question()" disabled> </span>
 
+{% endblock %}
+
+{% block control-component %}
+<div class="row control-panel">
+	<div class="col-12">
+		<center class="control-panel container">
+			<div class="col-10 col-sm-6 mb-4 row ">
+
+				<div class="col-6 align-left">
+				   <div class="btn-group dropup">
+			            <span id='btn-edit' class="icon question-edit" onclick="edit_question()" >  </span>
+					    <span id='btn-tag' style="display:none;"  class="icon question-tag" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" > </span>
+						<div id="choose_tag" class="dropdown-menu">
+						{% for each in type_content %}
+
+							<div class="dropdown-item mb-2 type-selector {% if each.name == question.question_type  %}{{ 'active' }}{% endif %}" id="type_{{ each.id }}">
+								<b>{{ each.name }}</b>
+							</div>
+
+						{% endfor %}
+						</div>
+						<span id='btn-save' style="display:none;" class="icon question-save" onclick="update_question()"> </span>
+					</span>
+
+
+
+				   </div>
+
+
+				</div>
+
+			    <div class="col-6 align-right">
+				    <span id='btn-save' class="icon question-delete" onclick="open_delete()">  </span>
+			    </div>
+			</div>
+		</center>
 	</div>
-
-    <div class="col-6 align-right">
-	    <span id='btn-save' class="icon question-delete" onclick="open_delete()">  </span>
-    </div>
 </div>
-</center>
-
 {% endblock %}
-
-{% block plug-q %}
-
-{% endblock %}
-
 {% block extrascript %}
 <script>
 {% if user.user_name %}

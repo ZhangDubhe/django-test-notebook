@@ -33,41 +33,40 @@
 	</div>
 </center>
 </div>
-<div class="col-xs-12 col-sm-12 mb-4">
+{% endblock %}
 
-<center>
-<div class="col-10 col-sm-6 mb-4 row">
+{% block control-component %}
+<div class="control-panel row">
+	<div class="col-12">
+		<center >
+			<div class="col-10 col-sm-6 mb-4 row ">
 
-	<div class="col-6 align-left">
+				<div class="col-6 align-left">
 
-	   <div class="btn-group dropup">
-		    <span id='btn-tag' class="icon question-tag" onclick="choose_tag()" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" > </span>
-			<div id="choose_tag" class="dropdown-menu">
-			{% for each in type_content %}
-				<div class="dropdown-item mb-2 type-selector" id="type_{{ each.id }}">
-					<b>{{ each.name }}</b>
+				   <div class="btn-group dropup">
+					    <span id='btn-tag' class="icon question-tag" onclick="choose_tag()" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" > </span>
+						<div id="choose_tag" class="dropdown-menu">
+						{% for each in type_content %}
+							<div class="dropdown-item mb-2 type-selector" id="type_{{ each.id }}">
+								<b>{{ each.name }}</b>
+							</div>
+						{% endfor %}
+						</div>
+					   <span id='btn-save' class="icon question-save" onclick="save_question()" > </span>
+				   </div>
+
+
 				</div>
-			{% endfor %}
+
+			    <div class="col-6 align-right">
+				    <span id='btn-save' class="icon question-delete" onclick="delete_question('this')">  </span>
+			    </div>
 			</div>
-		   <span id='btn-save' class="icon question-save" onclick="save_question()" > </span>
-	   </div>
-
-
+		</center>
 	</div>
-
-    <div class="col-6 align-right">
-	    <span id='btn-save' class="icon question-delete" onclick="delete_question('this')">  </span>
-    </div>
 </div>
-
-</center>
-</div>
-
 {% endblock %}
 
-{% block plug-q %}
-
-{% endblock %}
 
 {% block extrascript %}
 <script>
@@ -85,7 +84,6 @@ $(function () {
 			$(this).addClass("active");
 		}
 	});
-
 })
 
 </script>

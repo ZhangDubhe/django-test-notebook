@@ -5,6 +5,8 @@ from .models import User, Question, Type
 import json
 from django.db.models import Q
 import random
+
+
 # Create your views here.
 
 
@@ -189,7 +191,7 @@ def question(request, user_id, question_id):
 	print("[ + ] index:", ans_index)
 	print("[ + ] text:", ans_text)
 	return render(request, 'question.html', {
-		'title': '错题第'+str(current_question.id) + '号',
+		'title': '错题第' + str(current_question.id) + '号',
 		'username': user.user_name,
 		'user': user,
 		'question': current_question,
@@ -216,6 +218,50 @@ def load_question_by(user_id):
 	return questions
 
 
+def update_items(request, user_id):
+	if request.method == "POST" and request.POST.get('question_type') and request.POST.get('question'):
+		q_id = request.POST.get('question_id')
+		problem = request.POST.get('question')
+		right = request.POST.get('rightAns')
+		wrong1 = request.POST.get('wrongAns1')
+		wrong2 = request.POST.get('wrongAns2')
+		wrong3 = request.POST.get('wrongAns3')
+		wrong_ans = json.dumps({
+			"wrong1": wrong1,
+			"wrong2": wrong2,
+			"wrong3": wrong3
+		})
+		type_id = request.POST.get('question_type')
+		type_name = Type.objects.get(id=type_id).name
+		try:
+			old_question = Question.objects.get(id=q_id)
+			old_question.name = problem
+			old_question.right_answer = right
+			old_question.wrong_answer = wrong_ans
+			old_question.question_type = type_name
+			old_question.save()
+			result = "更新成功"
+			status = 21
+		except Question.DoesNotExist:
+			result = "蜜汁错误。"
+			status = 0
+	else:
+		result = "访问失败:("
+		status = 500
+
+	if status == 21:
+		return HttpResponse(json.dumps({
+			'result': result,
+			'status': status,
+			'questionid': old_question.id
+		}))
+	else:
+		return HttpResponse(json.dumps({
+			'result': result,
+			'status': status
+		}))
+
+
 def add_items(request, user_id):
 	if request.method == "POST" and request.POST.get('type') and not request.POST.get('question'):
 		editor = user_id
@@ -226,7 +272,7 @@ def add_items(request, user_id):
 			result = 'Type created'
 			status = 20
 		except Type.DoesNotExist:
-			result = 'Add failed: editor = '+str(user_id)+'type='+new_type
+			result = 'Add failed: editor = ' + str(user_id) + 'type=' + new_type
 			status = 0
 	elif request.method == "POST" and request.POST.get('question_type') and request.POST.get('question'):
 		problem = request.POST.get('question')
@@ -242,15 +288,16 @@ def add_items(request, user_id):
 		type_id = request.POST.get('question_type')
 		type_name = Type.objects.get(id=type_id).name
 		try:
-			new_question = Question(name=problem, right_answer=right, wrong_answer=wrong_ans, question_type=type_name, user_id=user_id)
+			new_question = Question(name=problem, right_answer=right, wrong_answer=wrong_ans, question_type=type_name,
+			                        user_id=user_id)
 			new_question.save()
-			result = "Already updated into System."
+			result = "添加成功"
 			status = 21
 		except Question.DoesNotExist:
-			result = "You update new question? But we don't added this function."
+			result = "蜜汁错误。"
 			status = 0
 	else:
-		result = "Request error"
+		result = "访问失败:("
 		status = 500
 
 	if status == 20:
@@ -289,6 +336,7 @@ def delete_items(request, user_id):
 		'status': status
 	}))
 
+
 def search_questions(request, user_id, string):
 	if request.method == "POST" and request.GET.get('questions'):
 		status = 200
@@ -305,4 +353,3 @@ def search_questions(request, user_id, string):
 		'status': status,
 		'questions': results
 	}))
-

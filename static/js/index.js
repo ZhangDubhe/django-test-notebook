@@ -26,6 +26,46 @@ function add_question() {
 	location.href = API_PATH + "u/" + session.uuid + "/collect";
 }
 
+function update_question() {
+	var questionId = parseInt($(".question-header").attr('id').split("_")[1]);
+	var name = $(".question-header").text();
+	var $ansCard = $(".answer-card");
+	
+	var right_ans = $ansCard[0].innerText;
+	var ans_2 = $ansCard[1].innerText;
+	var ans_3 = $ansCard[2].innerText;
+	var ans_4 = $ansCard[3].innerText;
+	var type = $(".type-selector.active>b").text();
+	var type_id = $(".type-selector.active").attr('id');
+	if(!type){
+		type = 'Base';
+		type_id = "type_1";
+	}
+	type_id = parseInt(type_id.split('_')[1]);
+	layer.msg("正在与服务器发生电波关系^W");
+	$.post(API_PATH + 'u/' + session.uuid +'/collect/update/',{
+		question_id:questionId,
+		question_type:type_id,
+		question:name,
+		rightAns:right_ans,
+		wrongAns1:ans_2,
+		wrongAns2:ans_3,
+		wrongAns3:ans_4,
+        csrfmiddlewaretoken:CSRFTOKEN
+		},function (res) {
+			layer.closeAll();
+			res = JSON.parse(res);
+			if(res.status == 21){
+				layer.msg(res.result);
+				location.href = API_PATH + "u/" + session.uuid +'/question/'+questionId;
+			}else{
+				layer.msg(res.result)
+			}
+		}
+	)
+}
+
+
 function save_question() {
 	var type = $(".type-selector.active>b").text();
 	var type_id = $(".type-selector.active").attr('id');
@@ -33,7 +73,6 @@ function save_question() {
 		type = 'Base';
 		type_id = "type_1";
 	}
-	type_id = parseInt(type_id.split('_')[1])
 	var name = $("#question-name").val();
 	var right_ans = $("#ans-1").val();
 	var ans_2= $("#ans-2").val();
@@ -51,6 +90,7 @@ function save_question() {
 		layer.msg("请至少输入一个错误答案");
 		return
 	}
+	type_id = parseInt(type_id.split('_')[1]);
 	layer.msg("正在与服务器发生电波关系^W");
 	$.post(API_PATH + 'u/' + session.uuid +'/collect/add/',{
 		question_type:type_id,
@@ -73,13 +113,7 @@ function save_question() {
 			}
 		}
 	)
-	
 }
-
-$(function () {
-
-	
-})
 
 function click_type() {
 	var environment = location.href;
@@ -108,8 +142,20 @@ function choose_answer(obj) {
 }
 
 function edit_question() {
-	var questionId = parseInt($(".question-header").attr('id').split("_")[1]);
+	$('#btn-edit').hide();
+	$('#btn-tag').show();
+	$('#btn-save').show();
+	var ans_list =  $('.answer-card');
+	if(ans_list.length<4){
+		for(var i = 0;i<(4-ans_list.length);i++){
+			$(".question-body").append('<div id="answer_'+(ans_list.length+i+1)+'" class="answer-card"> </div>');
+		}
+	}
+	$('.question-body h5').attr('contenteditable',true).addClass('form-line');
+	$('.answer-card').attr('contenteditable',true);
+	$(".ban-header").text('Edit');
 	
+	$('.control-panel').append('<p>修改的话，第一个仍然是正确答案哦~</p>')
 }
 
 function delete_question(str){

@@ -38,7 +38,7 @@ html{
     padding-left: 2rem;
     padding-right: 2rem;
 }
-input, button, input:focus , button:focus, textarea:focus{
+input, button, input:focus , button:focus, textarea:focus, h5:focus, div:focus{
     outline: none !important;
     outline-width: 0;
 }
@@ -144,8 +144,11 @@ nav{
 }
 .question-body{
     margin-top: 5rem;
-}
 
+}
+.question-card,.question-header,.answer-card{
+     text-align: left;
+}
 .question-card{
     margin-left: auto;
     margin-right: auto;
@@ -161,7 +164,7 @@ nav{
     -moz-border-radius: 3px;
     border-radius: 3px;
 }
-button.answer-card, input.answer-card{
+button.answer-card, input.answer-card, div.answer-card{
     width: 100%;
     height: 4rem;
     margin-bottom:2rem;
@@ -172,7 +175,8 @@ button.answer-card, input.answer-card{
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
     border-radius: 3px;
-    padding-left: 1rem;
+    padding: 0.9rem 1rem;
+
 }
 p {
     margin-top: 0;
@@ -304,4 +308,10 @@ button.answer-card, input.answer-card,.line-input, .question-body,.question-card
     margin-left:1rem;
     position: relative;
     top:0.5rem;
+}
+.control-panel{
+    width: 100%;
+    position: fixed;
+    left: 0;
+    bottom:4rem;
 }
