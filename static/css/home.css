@@ -10,6 +10,11 @@ html{
     src: url("../fonts/Neon.ttf");
 }
 
+@font-face {
+    font-family: Hiraginomarugo;
+    src: url("../fonts/hiraginomarugo.ttc");
+}
+
 .row{
     margin-right: 0!important;
     margin-left: 0!important;
@@ -73,8 +78,8 @@ span.icon{
     margin-left: 1rem;
 }
 .font-type{
-    font-size: 3rem;
-    font-family: Neon;
+    font-size: 2.6rem;
+    font-family: Neon, Hiraginomarugo;
 }
 nav{
     display: none;

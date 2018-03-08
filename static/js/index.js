@@ -196,6 +196,15 @@ function search_question() {
       $(this).toggle($(this).children('p').text().toLowerCase().indexOf(value) > -1)
     });
 }
+function filter_question(type){
+    $(".question-card.real-question").filter(function() {
+    	if(type == 'All'){
+    	    $(this).toggle(true);
+	    }else {
+    		$(this).toggle($(this).attr('type') == type)
+	    }
+    });
+}
 function close_search() {
 	$("#layui-layer-shade1").remove();
 	$(".layer-content").remove();

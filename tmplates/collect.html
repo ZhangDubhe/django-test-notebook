@@ -76,6 +76,18 @@
 	user_name = '{{ user.user_name }}';
 {% endif %}
 check_login();
+$(function () {
+	$(".type-selector").click(function () {
+		var $input = $(this);
+		if($input.hasClass('active')){
+			$(this).removeClass("active");
+		}else{
+			$(this).addClass("active");
+		}
+	});
+
+})
+
 </script>
-	<script src="{% static "js/load.js" %}"></script>
+
 {% endblock %}
