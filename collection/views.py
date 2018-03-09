@@ -1,11 +1,11 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseNotFound, Http404
-from .models import User, Question, Type
+from .models import User, Question, Type, QuestionDetail
 # Other Plugin
 import json
 from django.db.models import Q
 import random
-
+import datetime
 
 # Create your views here.
 
@@ -352,4 +352,23 @@ def search_questions(request, user_id, string):
 	return HttpResponse(json.dumps({
 		'status': status,
 		'questions': results
+	}))
+
+def question_update(request, user_id, question_id, is_correct):
+	status = 0
+	try:
+		q = QuestionDetail.objects.get(user=user_id, question=question_id)
+		q.detail = is_correct
+		q.update_at = datetime.datetime.timestamp()
+		q.save()
+		status = 20
+	except QuestionDetail.DoesNotExist:
+		try:
+			q = QuestionDetail(user=user_id, question=question_id, detail=is_correct)
+			q.save()
+			status = 20
+		except QuestionDetail.DoesNotExist:
+			print("error",QuestionDetail.DoesNotExist)
+	return HttpResponse(json.dumps({
+		'status': status
 	}))

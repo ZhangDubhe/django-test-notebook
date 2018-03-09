@@ -48,7 +48,7 @@ class QuizDetail(models.Model):
 
 class QuestionDetail(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    quizLog = models.ForeignKey(QuizLog, null=True, on_delete=models.CASCADE)
+    quizLog = models.ForeignKey(QuizLog, blank=True, null=True, on_delete=models.CASCADE)
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
     detail = models.CharField(max_length=250)
     create_at = models.DateTimeField(default=timezone.now)
