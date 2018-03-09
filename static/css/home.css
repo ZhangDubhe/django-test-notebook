@@ -77,10 +77,34 @@ span.icon{
     margin-bottom: 0.5rem;
     margin-left: 1rem;
 }
+.btn-group>span{
+    margin-left:2rem;
+}
 .font-type{
     font-size: 2.6rem;
     font-family: Neon, Hiraginomarugo;
 }
+@keyframes animateleft{
+    from {
+        left: -60%;
+
+    }
+
+    to {
+        left: 0;
+
+    }
+}
+@keyframes animateopacity{
+    from {
+        opacity: 0
+    }
+
+    to {
+        opacity: 0.6
+    }
+}
+
 nav{
     display: none;
     width:60%;
@@ -90,7 +114,8 @@ nav{
     top: 0;
     z-index: 999;
     background-color: #fafafa;
-    transition-duration: 500ms;
+    animation: animateleft 0.4s;
+
 }
 .nav-wrapper{
     position:fixed;
@@ -102,6 +127,7 @@ nav{
     height: 100%;
     background-color: #EFEFEF;
     opacity: 0.6;
+    animation: animateopacity 0.4s;
 }
 .avatar-card{
     width:100%;

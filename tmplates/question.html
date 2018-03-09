@@ -56,6 +56,10 @@
 			<div class="col-10 col-sm-6 mb-4 row ">
 
 				<div class="col-6 align-left">
+				    <span id='btn-save' class="icon question-delete" onclick="open_delete()">  </span>
+				</div>
+
+			    <div class="col-6 align-right">
 				   <div class="btn-group dropup">
 			            <span id='btn-edit' class="icon question-edit" onclick="edit_question()" >  </span>
 					    <span id='btn-tag' style="display:none;"  class="icon question-tag" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" > </span>
@@ -69,17 +73,8 @@
 						{% endfor %}
 						</div>
 						<span id='btn-save' style="display:none;" class="icon question-save" onclick="update_question()"> </span>
-					</span>
-
-
-
+						</span>
 				   </div>
-
-
-				</div>
-
-			    <div class="col-6 align-right">
-				    <span id='btn-save' class="icon question-delete" onclick="open_delete()">  </span>
 			    </div>
 			</div>
 		</center>
