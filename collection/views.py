@@ -356,19 +356,21 @@ def search_questions(request, user_id, string):
 
 def question_update(request, user_id, question_id, is_correct):
 	status = 0
+	print('[ + ] answer')
+	print('[ + ] user_id question_id is_correct', user_id, question_id, is_correct)
 	try:
-		q = QuestionDetail.objects.get(user=user_id, question=question_id)
+		print('[ Select ] Detail')
+		q = QuestionDetail.objects.get(user__id=user_id, question__id=question_id)
 		q.detail = is_correct
 		q.update_at = datetime.datetime.timestamp()
 		q.save()
 		status = 20
 	except QuestionDetail.DoesNotExist:
-		try:
-			q = QuestionDetail(user=user_id, question=question_id, detail=is_correct)
-			q.save()
-			status = 20
-		except QuestionDetail.DoesNotExist:
-			print("error",QuestionDetail.DoesNotExist)
+		print('[ Insert ] Detail')
+		q = QuestionDetail(user_id=user_id, question_id=question_id, detail=is_correct)
+		q.save()
+		status = 20
+
 	return HttpResponse(json.dumps({
 		'status': status
 	}))

@@ -11,7 +11,7 @@ class User(models.Model):
     add_at = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
-        return self.user_name + " create at" + str(self.add_at)
+        return self.user_name
 
 
 class Question(models.Model):   
@@ -55,7 +55,7 @@ class QuestionDetail(models.Model):
     update_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return User.objects.get(pk=self.user).user_name + "got at" + self.create_at
+        return self.user + " " + self.question
 
 
 class Type(models.Model):

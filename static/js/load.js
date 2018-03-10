@@ -37,12 +37,28 @@ $(function () {
 				$(this).addClass('wrong');
 			}
 			// change icon
-			$(".align-left").html('<a href="'+API_PATH+'u/'+session.uuid+'/question/'+(questionId-1)+'">上一题</a>');
-			$(".align-right").html('<a href="'+API_PATH+'u/'+session.uuid+'/question/'+(questionId+1)+'">下一题</a>');
+			var questionList = JSON.parse(session.question_list);
+			console.log(questionList);
+			var this_index = questionList.indexOf(questionId.toString())
+
+			if(this_index > 0){
+				$(".control-panel .align-left").html('<a href="'+API_PATH+'u/'+session.uuid+'/question/'+questionList[this_index-1]+'">\<</a>');
+			}
+			else{
+				$(".control-panel .align-left").html('');
+			}
+			if(this_index < questionList.length-1){
+				$(".control-panel .align-right").html('<a href="'+API_PATH+'u/'+session.uuid+'/question/'+questionList[this_index+1]+'">\></a>');
+			}
+			else{
+				$(".control-panel .align-right").html('');
+			}
+
 			// upload to database
-			$.getJSON(API_PATH+'u/'+session.uuid+'/question/'+questionId+'/'+result+'/',{
+			$.post(API_PATH+'u/'+session.uuid+'/question/'+questionId+'/'+result+'/',{
 				csrfmiddlewaretoken:CSRFTOKEN
 			},function (res) {
+				res = JSON.parse(res);
 				if(res.status == 20){
 					layer.msg('OK next');
 				}

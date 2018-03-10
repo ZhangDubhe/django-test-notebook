@@ -344,3 +344,8 @@ button.answer-card, input.answer-card,.line-input, .question-body,.question-card
     left: 0;
     bottom:4rem;
 }
+.control-panel a{
+    color:#969696;
+    font-weight: 600;
+    font-size: 3rem;
+}
