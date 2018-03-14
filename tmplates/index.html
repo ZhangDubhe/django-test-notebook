@@ -42,11 +42,9 @@
 				var id = $(questionList)[i].id.split('_')[1];
 				u_questions[i] = id;
 			}
-			console.log(u_questions);
 			session.question_list = JSON.stringify(u_questions);
 		}
 		createQuestionList();
-		console.log(session);
 	</script>
 	<script src="{% static "js/load.js" %}"></script>
 {% endblock %}

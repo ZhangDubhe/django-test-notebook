@@ -45,15 +45,17 @@ def index(request, **user_id):
 
 def quiz(request, user_id):
 	try:
-		user = User.objects.get(Q(id=user_id) | Q(id=1))
+		user = User.objects.get(id=user_id)
 		print(40 * "*")
 		print("user", user)
 	except User.DoesNotExist:
 		pass
-	return render(request, 'quiz.html', {
+	types = load_type_content(user.id)
+	return render(request, 'quiz/base.html', {
 		'title': 'Quiz',
 		'info': 'Quiz',
 		'username': user.user_name,
+		'type_content': types,
 		'user': user,
 	})
 
@@ -353,6 +355,7 @@ def search_questions(request, user_id, string):
 		'status': status,
 		'questions': results
 	}))
+
 
 def question_update(request, user_id, question_id, is_correct):
 	status = 0

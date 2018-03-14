@@ -1,0 +1,99 @@
+{% extends "../base.html" %}
+{% load static %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block extrastyle %}
+    {{ block.super }}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/home.css' %}" />
+{% endblock %}
+
+
+{% block header %}
+	<div class="ban-header">{{ info }}</div>
+{% endblock %}
+
+
+{% block branding-right %}
+{% endblock %}
+
+
+{% block content %}
+<div class="col-12 col-sm-12 mb-4">
+
+<center >
+	<div class="col-12 col-sm-4 question-body ">
+		<div class="question-card">
+		<div class="mt-4">
+			<h2>1 有限题目选数量</h2>
+			<p>未开放</p>
+		</div>
+		<div class="mt-4 mb-4">
+			<h4>题目数量 </h4>
+			<input type="text" class="form-control form-line no-background" />
+		</div>
+		<div class="row">
+		<div  class="col-6 align-left mt-4 mb-4">
+			<div class=" dropup">
+			    <span id='btn-tag'   class="icon question-tag" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" > </span>
+
+				<div id="choose_tag" class="dropdown-menu">
+					{% for each in type_content %}
+
+					<div class="dropdown-item mb-2 type-selector {% if each.name == question.question_type  %}{{ 'active' }}{% endif %}" id="type_{{ each.id }}">
+						<b>{{ each.name }}</b>
+					</div>
+
+					{% endfor %}
+				</div>
+			</div>
+		</div>
+		<div class="col-6 align-right mt-4 mb-4">
+				<button class="btn btn-dark" onclick="createQuestionList()">
+					开始
+				</button>
+		</div>
+		</div>
+
+
+		</div>
+	</div>
+	<div class="col-12 col-sm-4 question-body ">
+
+		<div class="question-card">
+		<div class="mt-4 mb-4">
+			<h2>2 随机无线循环大作战</h2>
+			<p>未开放</p>
+		</div>
+
+		<div class="col-12 align-right mt-4 mb-4">
+		<button class="btn btn-dark" onclick="" disabled>
+			开始
+		</button>
+		</div>
+
+		</div>
+	</div>
+</center>
+</div>
+{% endblock %}
+
+
+{% block extrascript %}
+	<script>
+		{% if user.user_name %}
+			login('{{ user.id }}');
+			user_name = '{{ user.user_name }}';
+		{% endif %}
+		check_login();
+		$(".type-base").html('<a href="{% url "logged" user.id %}">Base</a>')
+		function createQuestionList() {
+			var questionList = $('.real-question');
+			var u_questions =[];
+			{# post for a response #}
+			session.question_list = JSON.stringify(u_questions);
+		}
+
+	</script>
+	<script src="{% static "js/load.js" %}"></script>
+{% endblock %}

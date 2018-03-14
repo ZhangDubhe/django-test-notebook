@@ -310,6 +310,13 @@ button.answer-card, input.answer-card,.line-input, .question-body,.question-card
 *{
     color:#969696;
 }
+.font-type a{
+    color:#969696;
+}
+.font-type a:focus,.font-type a:hover ,a:hover, a:focus{
+    color:#969696;
+    text-decoration: none;
+}
 .question{
     font-family: 'A+9rnz-凸版文久明朝 Pr6N R';
 }
