@@ -33,6 +33,12 @@
 		{% if user.user_name %}
 			login('{{ user.id }}');
 			user_name = '{{ user.user_name }}';
+			session.newfeature = '{{ is_get_new_feature }}';
+			if(session.newfeature == true){
+				layer.msg('更新说明：新版增加quiz测试',10000);
+				session.newfeature = false
+			}
+
 		{% endif %}
 		check_login();
 		function createQuestionList() {
