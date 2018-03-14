@@ -38,9 +38,9 @@ $(function () {
 			}
 			// change icon
 			var questionList = JSON.parse(session.question_list);
-			console.log(questionList);
 			var this_index = questionList.indexOf(questionId.toString())
 
+			console.log('now at:',this_index,questionList);
 			if(this_index > 0){
 				$(".control-panel .align-left").html('<a href="'+API_PATH+'u/'+session.uuid+'/question/'+questionList[this_index-1]+'">\<</a>');
 			}

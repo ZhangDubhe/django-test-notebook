@@ -42,6 +42,7 @@
 
 
 {% block type-component %}
+{% if user.id %}
 	<div class="nav-wrapper"></div>
     <nav id="user-panel" class="left-panel">
         <div class="avatar-card mb-4">
@@ -86,6 +87,7 @@
 			<div class="font-type pl-3" ><a href="{% url 'quiz' user.id %}">Quiz</a></div>
         </div>
     </nav>
+{% endif %}
 {% endblock %}
 
     <!-- Content -->

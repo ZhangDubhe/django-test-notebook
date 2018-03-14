@@ -50,6 +50,10 @@ def quiz(request, user_id):
 		print("user", user)
 	except User.DoesNotExist:
 		pass
+	try:
+		question_number = len(Question.objects.filter(user=user_id))
+	except Question.DoesNotExist:
+		question_number = 0
 	types = load_type_content(user.id)
 	return render(request, 'quiz/base.html', {
 		'title': 'Quiz',
@@ -57,6 +61,7 @@ def quiz(request, user_id):
 		'username': user.user_name,
 		'type_content': types,
 		'user': user,
+		'question_number': question_number
 	})
 
 
@@ -340,7 +345,7 @@ def delete_items(request, user_id):
 
 
 def search_questions(request, user_id, string):
-	if request.method == "POST" and request.GET.get('questions'):
+	if request.method == "POST" and request.POST.get('questions'):
 		status = 200
 		question_result = Question.objects.filter(name__contains=string, user__id=user_id)
 		res_list = []
@@ -359,21 +364,48 @@ def search_questions(request, user_id, string):
 
 def question_update(request, user_id, question_id, is_correct):
 	status = 0
-	print('[ + ] answer')
+	print('[ + ] Answer')
 	print('[ + ] user_id question_id is_correct', user_id, question_id, is_correct)
 	try:
-		print('[ Select ] Detail')
-		q = QuestionDetail.objects.get(user__id=user_id, question__id=question_id)
-		q.detail = is_correct
-		q.update_at = datetime.datetime.timestamp()
-		q.save()
-		status = 20
-	except QuestionDetail.DoesNotExist:
 		print('[ Insert ] Detail')
 		q = QuestionDetail(user_id=user_id, question_id=question_id, detail=is_correct)
 		q.save()
 		status = 20
+	except QuestionDetail.DoesNotExist:
+		status = 0
 
 	return HttpResponse(json.dumps({
 		'status': status
 	}))
+
+
+def get_quiz(request, user_id):
+	# First Select from all questions
+	status = 0
+	if request.method == "POST" and request.POST.get('type') == 'select-number':
+		number = int(request.POST.get('numbers'))
+
+		print("[ + ] query number:", number)
+		print("[ + ] query user:", user_id)
+		try:
+			question_list = Question.objects.filter(user__id=user_id).all()[0:number].values('id')
+			status = 20
+		except Question.DoesNotExist:
+			pass
+	elif request.method == "POST" and request.GET.get('type') == 'no-number':
+		try:
+			question_list = Question.objects.filter(user=user_id).all()
+			status = 20
+		except Question.DoesNotExist:
+			pass
+	if status == 0:
+		return HttpResponse(json.dumps({
+			'status': status
+		}))
+	else:
+		question_list = list(question_list)
+		print("[ + ] question list:", question_list)
+		return HttpResponse(json.dumps({
+			'status': status,
+			'question_list': question_list
+		}))

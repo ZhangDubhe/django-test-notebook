@@ -21,21 +21,19 @@
 {% block content %}
 <div class="col-12 col-sm-12 mb-4">
 
-<center >
-	<div class="col-12 col-sm-4 question-body ">
-		<div class="question-card">
+<center class="row" >
+	<div class="col-11 col-sm-4 box">
 		<div class="mt-4">
 			<h2>1 有限题目选数量</h2>
-			<p>未开放</p>
 		</div>
 		<div class="mt-4 mb-4">
-			<h4>题目数量 </h4>
-			<input type="text" class="form-control form-line no-background" />
+			<h4>题目数量 (已有{{ question_number }}) </h4>
+			<input type="text" id='question-number' class="form-control form-line no-background" />
 		</div>
 		<div class="row">
 		<div  class="col-6 align-left mt-4 mb-4">
 			<div class=" dropup">
-			    <span id='btn-tag'   class="icon question-tag" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" > </span>
+			    <span id='btn-tag'   class="icon question-tag" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" hidden > </span>
 
 				<div id="choose_tag" class="dropdown-menu">
 					{% for each in type_content %}
@@ -56,23 +54,19 @@
 		</div>
 
 
-		</div>
 	</div>
-	<div class="col-12 col-sm-4 question-body ">
-
-		<div class="question-card">
+	<div class="col-11 col-sm-4 box ">
 		<div class="mt-4 mb-4">
 			<h2>2 随机无线循环大作战</h2>
 			<p>未开放</p>
 		</div>
 
 		<div class="col-12 align-right mt-4 mb-4">
-		<button class="btn btn-dark" onclick="" disabled>
+		<button class="btn btn-dark"  disabled>
 			开始
 		</button>
 		</div>
 
-		</div>
 	</div>
 </center>
 </div>
@@ -88,10 +82,39 @@
 		check_login();
 		$(".type-base").html('<a href="{% url "logged" user.id %}">Base</a>')
 		function createQuestionList() {
-			var questionList = $('.real-question');
+			if($('#question-number').val()== ''){
+				layer.msg("请输入数量");
+				return
+			}
+			if(parseInt($('#question-number').val())>{{ question_number }}){
+				layer.msg("请输入小于或等于总量的数字");
+				return
+			}
+			console.log($('#question-number').val());
 			var u_questions =[];
-			{# post for a response #}
-			session.question_list = JSON.stringify(u_questions);
+			var data = {};
+			data.csrfmiddlewaretoken = CSRFTOKEN;
+			data.numbers = parseInt($('#question-number').val());
+			data.type = 'select-number';
+			layer.msg("生成中");
+			$.post("{% url "get-quiz" user.id %}", data, function(res){
+				layer.closeAll();
+				res = JSON.parse(res);
+				if(res.status == 20){
+					var u_question = res.question_list;
+					u_questions = shuffle(u_question);
+					u_q_list = []
+					u_questions.forEach(function (value) {
+						u_q_list.push(value.id.toString())
+					})
+					session.question_list = JSON.stringify(u_q_list);
+					layer.msg("题目生成成功。");
+					setTimeout(console.log(session.question_list),1000);
+					location.href=API_PATH+'u/'+session.uuid+'/question/'+u_q_list[0];
+				}else{
+					layer.msg("题目生成失败，请稍后再试");
+				}
+			});
 		}
 
 	</script>
